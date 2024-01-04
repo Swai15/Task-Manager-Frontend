@@ -1,33 +1,42 @@
 import React, { useState, useEffect } from "react";
 import Task from "./components/Task";
+import Project from "./components/Projects";
 
 import "./App.css";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  // const [tasks, setTasks] = useState([]);
+  const [projects, setProjects] = useState([]);
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const URL = "http://127.0.0.1:8000/api";
 
-  const fetchTasks = async () => {
+  const fetchProjects = async () => {
     try {
-      const response = await fetch(URL + "/tasks");
+      const response = await fetch(URL + "/projects");
       const data = await response.json();
-      setTasks(data);
+      setProjects(data);
     } catch (error) {
-      console.error("Error fetching tasks: ", error);
+      console.error("Error fetching projects: ", error);
     }
   };
 
   useEffect(() => {
-    fetchTasks();
+    fetchProjects();
   }, []);
 
   return (
     <div className="App">
-      <h2>Tasks</h2>
-      <hr />
-      {tasks.map((task) => (
-        <Task key={task.id} task={task} />
+      <h2>Projects</h2>
+      {projects.map((project) => (
+        <div key={project.id}>
+          <Project project={project} />
+          <h3>Tasks</h3>
+          {project.tasks.map((task) => (
+            <Task key={task.id} task={task} />
+          ))}
+          <hr />
+        </div>
       ))}
     </div>
   );
