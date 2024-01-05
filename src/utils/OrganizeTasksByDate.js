@@ -1,3 +1,5 @@
+import { startOfDay, differenceInMilliseconds } from "date-fns";
+
 const OrganizeTasksByDate = (tasks) => {
   const todayTasks = [];
   const tomorrowTasks = [];
@@ -5,10 +7,14 @@ const OrganizeTasksByDate = (tasks) => {
   const overdueTasks = [];
 
   const currentDate = new Date();
+  const startOfCurrentDay = startOfDay(currentDate);
 
   tasks.forEach((task) => {
     const taskDueDate = new Date(task.due_date);
-    const timeDifference = taskDueDate.getTime() - currentDate.getTime();
+    // const timeDifference = taskDueDate.getTime() - currentDate.getTime();
+
+    // solves timezone issue
+    const timeDifference = differenceInMilliseconds(taskDueDate, startOfCurrentDay);
 
     if (timeDifference >= 0 && timeDifference <= 86400000) {
       todayTasks.push(task);
