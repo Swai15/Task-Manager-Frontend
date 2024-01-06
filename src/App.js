@@ -3,13 +3,15 @@ import Task from "./components/Task";
 import Project from "./components/Projects";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { ArrowLeftIcon } from "./icons/icons";
+import { AddTaskIcon, ArrowLeftIcon, CloseIcon } from "./icons/icons";
 import OrganizeTasksByDate from "./utils/OrganizeTasksByDate";
+import TaskForm from "./components/TaskForm";
 
 function App() {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [projectsVisible, setProjectsVisible] = useState(true);
+  const [taskModal, setTaskModal] = useState(false);
 
   const URL = "http://127.0.0.1:8000/api";
 
@@ -51,19 +53,30 @@ function App() {
 
     return OrganizeTasksByDate(selectedProject.tasks);
   };
-
   const { todayTasks, tomorrowTasks, futureTasks, overdueTasks } = OrganizeTasks();
 
+  // Handle Add task
+  const handleAddTaskClick = () => {
+    console.log("task modal opened");
+    setTaskModal(true);
+  };
+
+  const handleCloseTaskClick = () => {
+    setTaskModal(false);
+  };
+
+  // Return JSX
+
   return (
-    <div className="App container">
+    <div>
       {/* Project List */}
       {projectsVisible ? (
         <div>
           <h2>Projects</h2>
           <hr />
-          <div className="row">
+          <div>
             {projects.map((project) => (
-              <div key={project.id} className="col-md-4 mb-3 project">
+              <div key={project.id}>
                 <Project project={project} onClick={() => handleActiveProject(project)} />
               </div>
             ))}
@@ -73,29 +86,33 @@ function App() {
 
       {/* Tasks */}
       {selectedProject && (
-        <div>
+        <div className="selected-project-tasks">
           <div className="back-button">
             <ArrowLeftIcon onClick={handleBackToProjects} />
           </div>
           <h3>Tasks for {selectedProject.title}</h3>
+          <hr />
 
           {/* Todays Tasks */}
           {todayTasks.length > 0 && (
             <>
-              <h4>Today heading</h4>
-              {todayTasks.map((task) => (
-                <div key={task.id} className="col-md-4 mb-3">
-                  <Task task={task} />
-                </div>
-              ))}
+              <h4 className="task-topic">Today </h4>
+              <div>
+                {todayTasks.map((task) => (
+                  <div key={task.id} className="col-md-4 mb-3">
+                    <Task task={task} />
+                  </div>
+                ))}
+              </div>
             </>
           )}
+          <hr />
 
           {/* Tomorrow's tasks */}
           {tomorrowTasks.length > 0 && (
             <>
-              <h4>Tomorrow heading</h4>
-              <div className="row">
+              <h4 className="task-topic">Tomorrow</h4>
+              <div>
                 {tomorrowTasks.map((task) => (
                   <div key={task.id} className="col-md-4 mb-3">
                     <Task task={task} />
@@ -104,12 +121,13 @@ function App() {
               </div>
             </>
           )}
+          <hr />
 
           {/* Future tasks */}
           {futureTasks.length > 0 && (
             <>
-              <h4>Future heading</h4>
-              <div className="row">
+              <h4 className="task-topic">Future </h4>
+              <div>
                 {futureTasks.map((task) => (
                   <div key={task.id} className="col-md-4 mb-3">
                     <Task task={task} />
@@ -118,23 +136,34 @@ function App() {
               </div>
             </>
           )}
+          <hr />
 
           {/* Overdue tasks */}
 
           {overdueTasks.length > 0 && (
             <>
-              <h4>Overdue Heading</h4>
+              <h4 className="task-topic">Overdue Heading</h4>
               <div className="row">
                 {overdueTasks.map((task) => (
-                  <div key={task.id} className="col-md-4 mb-3">
+                  <div key={task.id} className="col-mb-14mb-3">
                     <Task task={task} />
                   </div>
                 ))}
               </div>
             </>
           )}
+          <hr />
+
+          {/* open add */}
+          <div className="task-add">
+            <AddTaskIcon onClick={handleAddTaskClick} />
+          </div>
+
+          {/* add task modal */}
+          {taskModal && <TaskForm onCloseTaskClick={handleCloseTaskClick} />}
         </div>
       )}
+      {/* End of displayed tasks */}
     </div>
   );
 }
