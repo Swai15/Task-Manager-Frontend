@@ -26,7 +26,6 @@ function App() {
   };
 
   const handleActiveProject = (project) => {
-    console.log("Project clicked");
     setSelectedProject(project);
     setProjectsVisible(false);
   };
@@ -57,7 +56,6 @@ function App() {
 
   // Handle Add task
   const handleAddTaskClick = () => {
-    console.log("task modal opened");
     setTaskModal(true);
   };
 
@@ -92,7 +90,6 @@ function App() {
           </div>
           <h3>Tasks for {selectedProject.title}</h3>
           <hr />
-
           {/* Todays Tasks */}
           {todayTasks.length > 0 && (
             <>
@@ -107,7 +104,6 @@ function App() {
             </>
           )}
           <hr />
-
           {/* Tomorrow's tasks */}
           {tomorrowTasks.length > 0 && (
             <>
@@ -122,7 +118,6 @@ function App() {
             </>
           )}
           <hr />
-
           {/* Future tasks */}
           {futureTasks.length > 0 && (
             <>
@@ -137,9 +132,7 @@ function App() {
             </>
           )}
           <hr />
-
           {/* Overdue tasks */}
-
           {overdueTasks.length > 0 && (
             <>
               <h4 className="task-topic">Overdue Heading</h4>
@@ -158,7 +151,6 @@ function App() {
           <div className="task-add">
             <AddTaskIcon onClick={handleAddTaskClick} />
           </div>
-
           {/* add task modal */}
           {taskModal && <TaskForm onCloseTaskClick={handleCloseTaskClick} />}
         </div>

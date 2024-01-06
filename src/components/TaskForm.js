@@ -18,11 +18,11 @@ const TaskForm = ({ onCloseTaskClick }) => {
   });
 
   // fetch projects
-  const URL = "http://127.0.0.1:8000/api";
+  const URL = "http://127.0.0.1:8000/api/";
 
   const fetchProjects = async () => {
     try {
-      const response = await fetch(URL + "/projects");
+      const response = await fetch(URL + "projects/");
       const data = await response.json();
       setProjectsOptions(data);
     } catch (error) {
@@ -30,12 +30,46 @@ const TaskForm = ({ onCloseTaskClick }) => {
     }
   };
 
+  useEffect(() => {
+    fetchProjects();
+  }, []);
+
   // Post task
 
-  const handleSubmitTask = (e) => {
-    console.log("Task submitted");
-    console.log(formData);
+  const handleSubmitTask = async (e) => {
     e.preventDefault();
+
+    try {
+      console.log("FormData:", JSON.stringify(formData.task));
+
+      const response = await fetch(URL + "tasks/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData.task),
+      });
+
+      if (response.ok) {
+        console.log("Task submitted successfully");
+        setFormData({
+          task: {
+            title: "",
+            description: "",
+            due_date: "",
+            priority: "Low",
+            project: null,
+            completed: false,
+          },
+          project: { title: "" },
+        });
+        onCloseTaskClick();
+      } else {
+        console.error("Failed to submit task");
+      }
+    } catch (error) {
+      console.error("Error submitting task:", error);
+    }
   };
 
   return (
@@ -87,7 +121,7 @@ const TaskForm = ({ onCloseTaskClick }) => {
                 const selectedProject = projectsOptions.find((project) => project.title === e.target.value);
                 setFormData({
                   ...formData,
-                  task: { ...formData.task, project: selectedProject.title },
+                  task: { ...formData.task, project: selectedProject.id },
                 });
               }}
             >
