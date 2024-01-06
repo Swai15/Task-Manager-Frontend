@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CloseIcon } from "../icons/icons";
 
-const TaskForm = ({ onCloseTaskClick }) => {
+const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId }) => {
   const [projectsOptions, setProjectsOptions] = useState([]);
   const [formData, setFormData] = useState({
     task: {
@@ -34,8 +34,7 @@ const TaskForm = ({ onCloseTaskClick }) => {
     fetchProjects();
   }, []);
 
-  // Post task
-
+  //Post task to db
   const handleSubmitTask = async (e) => {
     e.preventDefault();
 
@@ -50,14 +49,22 @@ const TaskForm = ({ onCloseTaskClick }) => {
         body: JSON.stringify(formData.task),
       });
 
+      // update state after successful post
       if (response.ok) {
         console.log("Task submitted successfully");
+
+        const updatedList = await fetch(`${URL}projects/${activeProjectId}`);
+        const updatedListData = await updatedList.json();
+        setSelectedProject(updatedListData);
+        console.log(updatedListData);
+
+        // empty task form values
         setFormData({
           task: {
             title: "",
             description: "",
             due_date: "",
-            priority: "Low",
+            priority: "",
             project: null,
             completed: false,
           },

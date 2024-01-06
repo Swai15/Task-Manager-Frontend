@@ -12,9 +12,11 @@ function App() {
   const [selectedProject, setSelectedProject] = useState(null);
   const [projectsVisible, setProjectsVisible] = useState(true);
   const [taskModal, setTaskModal] = useState(false);
+  const [activeProjectId, setActiveProjectId] = useState(null);
 
   const URL = "http://127.0.0.1:8000/api";
 
+  // fetch all projects
   const fetchProjects = async () => {
     try {
       const response = await fetch(URL + "/projects");
@@ -25,11 +27,14 @@ function App() {
     }
   };
 
+  // display tasks for projects clicked
   const handleActiveProject = (project) => {
     setSelectedProject(project);
+    setActiveProjectId(project.id);
     setProjectsVisible(false);
   };
 
+  // back button
   const handleBackToProjects = () => {
     setSelectedProject(null);
     setProjectsVisible(true);
@@ -64,7 +69,6 @@ function App() {
   };
 
   // Return JSX
-
   return (
     <div>
       {/* Project List */}
@@ -82,7 +86,7 @@ function App() {
         </div>
       ) : null}
 
-      {/* Tasks */}
+      {/* Task List */}
       {selectedProject && (
         <div className="selected-project-tasks">
           <div className="back-button">
@@ -90,6 +94,7 @@ function App() {
           </div>
           <h3>Tasks for {selectedProject.title}</h3>
           <hr />
+
           {/* Todays Tasks */}
           {todayTasks.length > 0 && (
             <>
@@ -104,6 +109,7 @@ function App() {
             </>
           )}
           <hr />
+
           {/* Tomorrow's tasks */}
           {tomorrowTasks.length > 0 && (
             <>
@@ -118,6 +124,7 @@ function App() {
             </>
           )}
           <hr />
+
           {/* Future tasks */}
           {futureTasks.length > 0 && (
             <>
@@ -132,6 +139,7 @@ function App() {
             </>
           )}
           <hr />
+
           {/* Overdue tasks */}
           {overdueTasks.length > 0 && (
             <>
@@ -147,12 +155,13 @@ function App() {
           )}
           <hr />
 
-          {/* open add */}
+          {/* open add task form */}
           <div className="task-add">
             <AddTaskIcon onClick={handleAddTaskClick} />
           </div>
-          {/* add task modal */}
-          {taskModal && <TaskForm onCloseTaskClick={handleCloseTaskClick} />}
+
+          {/* Add & submit task */}
+          {taskModal && <TaskForm onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />}
         </div>
       )}
       {/* End of displayed tasks */}
