@@ -5,6 +5,8 @@ const Task = ({ task }) => {
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [completed, setCompleted] = useState(task.completed);
 
+  const URL = "http://127.0.0.1:8000/api/";
+
   const handleDescriptionClick = () => {
     console.log("Description opened");
     setDescriptionModal(true);
@@ -14,11 +16,38 @@ const Task = ({ task }) => {
     setDescriptionModal(false);
   };
 
+  // Edit Completed
   const handleEditClick = async () => {
-    setCompleted(!completed);
     console.log("Checkbox toggled");
+    setCompleted((prevCompleted) => !prevCompleted); // Update state using functional form
+
+    const updatedTask = { ...task, completed: !completed };
+    handleUpdatedTask(updatedTask);
   };
 
+  const handleUpdatedTask = async (updatedTask) => {
+    try {
+      const response = await fetch(`${URL}tasks/${updatedTask.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedTask),
+      });
+      const data = await response.json();
+      console.log("Task updated: ", data);
+
+      if (response.ok) {
+        console.log("Checkbox updated successfully");
+      } else {
+        console.log("failed to update checkbox");
+      }
+    } catch (error) {
+      console.error("Error updating task: ", error);
+    }
+  };
+
+  // Edit delete
   const handleDeleteClick = () => {};
 
   const taskDueDate = new Date(task.due_date);
@@ -26,6 +55,7 @@ const Task = ({ task }) => {
   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(taskDueDate);
 
   // dynamic checkbox class name
+  console.log(task.completed);
   const taskTitleClassName = task.completed ? "task-title completed" : "task-title";
 
   return (

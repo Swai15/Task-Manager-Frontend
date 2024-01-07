@@ -31,13 +31,13 @@ h4 {
   margin-right: 10px;
 }
 
-.task-title {
+/* .task-title {
   margin-bottom: 0px;
 }
 
 .task-title.completed {
   text-decoration: line-through;
-}
+} */
 
 
 .task-topic {
@@ -146,4 +146,12 @@ h4 {
   /* border: 1px solid black; */
   display: flex;
   justify-content: end;
+}
+
+.task-title {
+  margin-bottom: 0px;
+}
+
+.task-title.completed {
+  text-decoration: line-through;
 }

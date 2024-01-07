@@ -108,7 +108,7 @@ const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId }) => 
           {/* priority */}
           <div>
             <label className="form-label">Priority:</label>
-            <select name="priority" id="" className="form-select" value={formData.task.title} onChange={(e) => setFormData({ ...formData, task: { ...formData.task, priority: e.target.value } })}>
+            <select name="priority" id="" className="form-select" value={formData.task.priority} onChange={(e) => setFormData({ ...formData, task: { ...formData.task, priority: e.target.value } })}>
               <option value="Low">Low</option>
               <option value="Medium">Medium</option>
               <option value="High">High</option>
