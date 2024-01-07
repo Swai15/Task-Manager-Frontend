@@ -17,7 +17,7 @@ const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId }) => 
     },
   });
 
-  // fetch projects
+  // fetch projects for task field options
   const URL = "http://127.0.0.1:8000/api/";
 
   const fetchProjects = async () => {

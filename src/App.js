@@ -77,7 +77,9 @@ function App() {
   const handleCloseProjectClick = () => {
     setProjectModal(false);
   };
-  // Return JSX
+
+  // Return
+  <hr />;
   return (
     <div>
       {/* Project List */}
@@ -92,18 +94,13 @@ function App() {
               </div>
             ))}
           </div>
-          {/* 
-            <div className="task-add">
-            <AddTaskIcon onClick={handleAddTaskClick} />
-          </div>
 
-          {taskModal && <TaskForm onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />}
-        </div> */}
+          {/* Add project modal */}
           <div className="project-add">
             <AddProjectIcon onClick={handleAddProjectClick} />
           </div>
 
-          {projectModal && <ProjectForm onCloseProjectClick={handleCloseProjectClick} />}
+          {projectModal && <ProjectForm onCloseProjectClick={handleCloseProjectClick} setProjects={setProjects} />}
         </div>
       ) : null}
 
@@ -127,9 +124,9 @@ function App() {
                   </div>
                 ))}
               </div>
+              <hr />
             </>
           )}
-          <hr />
 
           {/* Tomorrow's tasks */}
           {tomorrowTasks.length > 0 && (

@@ -1,10 +1,53 @@
 import React, { useState } from "react";
 import { CloseIcon } from "../icons/icons";
 
-const ProjectForm = ({ onCloseProjectClick }) => {
-  const [projectFormData, setProjectFormData] = useState([]);
+const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
+  const [projectFormData, setProjectFormData] = useState({ title: "" });
 
-  const handleSubmitProject = () => {};
+  const URL = "http://127.0.0.1:8000/api/";
+
+  // fetch updated project list
+  const updateProjectList = async () => {
+    try {
+      const response = await fetch(URL + "projects/");
+      const updatedData = await response.json();
+      setProjects(updatedData);
+    } catch (error) {
+      console.error("Error fetching updated projects ", error);
+    }
+  };
+
+  // Submit Project
+  const handleSubmitProject = async (e) => {
+    e.preventDefault();
+
+    const URL = "http://127.0.0.1:8000/api/";
+
+    try {
+      console.log(JSON.stringify(projectFormData));
+
+      const response = await fetch(URL + "projects/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(projectFormData),
+      });
+
+      if (response.ok) {
+        console.log("project submitted");
+        updateProjectList();
+        onCloseProjectClick();
+        setProjectFormData({
+          title: "",
+        });
+      } else {
+        console.log("Failed to submit project");
+      }
+    } catch (error) {
+      console.error("Error fetching projects: ", error);
+    }
+  };
 
   return (
     <div className="project-modal-overlay">
