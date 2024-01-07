@@ -3,6 +3,7 @@ import { DeleteIcon, EditIcon, InfoCircle } from "../icons/icons";
 
 const Task = ({ task }) => {
   const [descriptionModal, setDescriptionModal] = useState(false);
+  const [completed, setCompleted] = useState(task.completed);
 
   const handleDescriptionClick = () => {
     console.log("Description opened");
@@ -13,7 +14,10 @@ const Task = ({ task }) => {
     setDescriptionModal(false);
   };
 
-  const handleEditClick = () => {};
+  const handleEditClick = async () => {
+    setCompleted(!completed);
+    console.log("Checkbox toggled");
+  };
 
   const handleDeleteClick = () => {};
 
@@ -21,10 +25,14 @@ const Task = ({ task }) => {
   const options = { day: "numeric", month: "long" };
   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(taskDueDate);
 
+  // dynamic checkbox class name
+  const taskTitleClassName = task.completed ? "task-title completed" : "task-title";
+
   return (
     <div className="task-row" key={task.id}>
-      <input type="checkbox" />
-      <p className="task-title">{task.title}</p>
+      <input type="checkbox" checked={completed} onChange={handleEditClick} />
+
+      <p className={taskTitleClassName}>{task.title}</p>
       {/* <p>{task.description}</p> */}
       <p className="task-date">{formattedDate} </p>
       <div className="task-icons">
