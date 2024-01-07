@@ -3,15 +3,17 @@ import Task from "./components/Task";
 import Project from "./components/Projects";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { AddTaskIcon, ArrowLeftIcon, CloseIcon } from "./icons/icons";
+import { AddProjectIcon, AddTaskIcon, ArrowLeftIcon, CloseIcon } from "./icons/icons";
 import OrganizeTasksByDate from "./utils/OrganizeTasksByDate";
 import TaskForm from "./components/TaskForm";
+import ProjectForm from "./components/ProjectForm";
 
 function App() {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [projectsVisible, setProjectsVisible] = useState(true);
   const [taskModal, setTaskModal] = useState(false);
+  const [projectModal, setProjectModal] = useState(false);
   const [activeProjectId, setActiveProjectId] = useState(null);
 
   const URL = "http://127.0.0.1:8000/api";
@@ -59,7 +61,7 @@ function App() {
   };
   const { todayTasks, tomorrowTasks, futureTasks, overdueTasks } = OrganizeTasks();
 
-  // Handle Add task
+  // Handle Add task/project
   const handleAddTaskClick = () => {
     setTaskModal(true);
   };
@@ -68,6 +70,13 @@ function App() {
     setTaskModal(false);
   };
 
+  const handleAddProjectClick = () => {
+    setProjectModal(true);
+  };
+
+  const handleCloseProjectClick = () => {
+    setProjectModal(false);
+  };
   // Return JSX
   return (
     <div>
@@ -83,6 +92,18 @@ function App() {
               </div>
             ))}
           </div>
+          {/* 
+            <div className="task-add">
+            <AddTaskIcon onClick={handleAddTaskClick} />
+          </div>
+
+          {taskModal && <TaskForm onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />}
+        </div> */}
+          <div className="project-add">
+            <AddProjectIcon onClick={handleAddProjectClick} />
+          </div>
+
+          {projectModal && <ProjectForm onCloseProjectClick={handleCloseProjectClick} />}
         </div>
       ) : null}
 
@@ -121,9 +142,9 @@ function App() {
                   </div>
                 ))}
               </div>
+              <hr />
             </>
           )}
-          <hr />
 
           {/* Future tasks */}
           {futureTasks.length > 0 && (
@@ -136,9 +157,9 @@ function App() {
                   </div>
                 ))}
               </div>
+              <hr />
             </>
           )}
-          <hr />
 
           {/* Overdue tasks */}
           {overdueTasks.length > 0 && (
@@ -151,9 +172,9 @@ function App() {
                   </div>
                 ))}
               </div>
+              <hr />
             </>
           )}
-          <hr />
 
           {/* open add task form */}
           <div className="task-add">
