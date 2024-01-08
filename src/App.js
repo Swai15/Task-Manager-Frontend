@@ -120,7 +120,7 @@ function App() {
               <div>
                 {todayTasks.map((task) => (
                   <div key={task.id} className="col-md-4 mb-3">
-                    <Task task={task} />
+                    <Task task={task} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
                   </div>
                 ))}
               </div>
@@ -135,7 +135,7 @@ function App() {
               <div>
                 {tomorrowTasks.map((task) => (
                   <div key={task.id} className="col-md-4 mb-3">
-                    <Task task={task} />
+                    <Task task={task} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
                   </div>
                 ))}
               </div>
@@ -150,7 +150,7 @@ function App() {
               <div>
                 {futureTasks.map((task) => (
                   <div key={task.id} className="col-md-4 mb-3">
-                    <Task task={task} />
+                    <Task task={task} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
                   </div>
                 ))}
               </div>
@@ -165,7 +165,7 @@ function App() {
               <div className="row">
                 {overdueTasks.map((task) => (
                   <div key={task.id} className="col-mb-14mb-3">
-                    <Task task={task} />
+                    <Task task={task} onCloseTaskClick={handleCloseTaskClick} projects={projects} setProjects={setProjects} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
                   </div>
                 ))}
               </div>

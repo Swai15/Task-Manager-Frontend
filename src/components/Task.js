@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DeleteIcon, EditIcon, InfoCircle } from "../icons/icons";
 
-const Task = ({ task }) => {
+const Task = ({ task, setSelectedProject, activeProjectId }) => {
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [completed, setCompleted] = useState(task.completed);
-  const [newTask, setNewTask] = useState({ ...task });
-  // can't get changed task.completed state. newTask gets the updated change
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [newTask, setNewTask] = useState({ ...task }); // can't get changed task.completed state. newTask gets the updated change
 
   // state not working as expected
   const URL = "http://127.0.0.1:8000/api/";
@@ -53,9 +53,35 @@ const Task = ({ task }) => {
     }
   };
 
-  // Edit delete
-  const handleDeleteClick = () => {};
+  //Delete Task
 
+  const handleDeleteClick = () => {
+    setDeleteModal(true);
+  };
+  const handleDeleteModal = () => {
+    setDeleteModal(false);
+  };
+
+  const handleDeleteConfirmation = async (e) => {
+    try {
+      const response = await fetch(`${URL}tasks/${task.id}`, { method: "DELETE" });
+
+      if (response.ok) {
+        console.log("Task deleted successfully");
+
+        const updatedList = await fetch(`${URL}projects/${activeProjectId}`);
+        const updatedListData = await updatedList.json();
+        setSelectedProject(updatedListData);
+        console.log(updatedListData);
+      } else {
+        console.log("failed to delete task ");
+      }
+    } catch (error) {
+      console.error("Error deleting task ", error);
+    }
+  };
+
+  // Format date, month and date
   const taskDueDate = new Date(task.due_date);
   const options = { day: "numeric", month: "long" };
   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(taskDueDate);
@@ -75,6 +101,22 @@ const Task = ({ task }) => {
           <div className="task-modal">
             <p>{task.description}</p>
             <button onClick={handleCloseModal}></button>
+          </div>
+        )}
+
+        {deleteModal && (
+          <div className="delete-modal-overlay">
+            <div className="delete-modal">
+              <p>Are you sure you want to delete this task?</p>
+              <div>
+                <button type="button" className="btn btn-primary " onClick={handleDeleteConfirmation}>
+                  Delete
+                </button>
+                <button type="submit" className="btn btn-secondary" onClick={handleDeleteModal}>
+                  Cancel
+                </button>
+              </div>
+            </div>
           </div>
         )}
       </div>
