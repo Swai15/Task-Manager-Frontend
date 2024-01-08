@@ -4,7 +4,10 @@ import { DeleteIcon, EditIcon, InfoCircle } from "../icons/icons";
 const Task = ({ task }) => {
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [completed, setCompleted] = useState(task.completed);
+  const [newTask, setNewTask] = useState({ ...task });
+  // can't get changed task.completed state. newTask gets the updated change
 
+  // state not working as expected
   const URL = "http://127.0.0.1:8000/api/";
 
   const handleDescriptionClick = () => {
@@ -16,15 +19,16 @@ const Task = ({ task }) => {
     setDescriptionModal(false);
   };
 
-  // Edit Completed
-  const handleEditClick = async () => {
-    console.log("Checkbox toggled");
-    setCompleted((prevCompleted) => !prevCompleted); // Update state using functional form
+  // Edit Completed checkbox
+  const handleEditClick = async (e) => {
+    console.log(task.completed);
+    console.log("New task: ", newTask.completed);
 
     const updatedTask = { ...task, completed: !completed };
     handleUpdatedTask(updatedTask);
   };
 
+  // update checked status in db
   const handleUpdatedTask = async (updatedTask) => {
     try {
       const response = await fetch(`${URL}tasks/${updatedTask.id}`, {
@@ -39,6 +43,8 @@ const Task = ({ task }) => {
 
       if (response.ok) {
         console.log("Checkbox updated successfully");
+        setCompleted(updatedTask.completed);
+        setNewTask(data);
       } else {
         console.log("failed to update checkbox");
       }
@@ -54,16 +60,11 @@ const Task = ({ task }) => {
   const options = { day: "numeric", month: "long" };
   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(taskDueDate);
 
-  // dynamic checkbox class name
-  console.log(task.completed);
-  const taskTitleClassName = task.completed ? "task-title completed" : "task-title";
-
   return (
     <div className="task-row" key={task.id}>
       <input type="checkbox" checked={completed} onChange={handleEditClick} />
 
-      <p className={taskTitleClassName}>{task.title}</p>
-      {/* <p>{task.description}</p> */}
+      <p className={newTask.completed ? "task-title" : "task-title completed"}>{task.title}</p>
       <p className="task-date">{formattedDate} </p>
       <div className="task-icons">
         <InfoCircle onClick={handleDescriptionClick} />
