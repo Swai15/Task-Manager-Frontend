@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { DeleteIcon, EditIcon, InfoCircle } from "../icons/icons";
 
-const Task = ({ task, setSelectedProject, activeProjectId }) => {
+const Task = ({ task, projects, setSelectedProject, activeProjectId }) => {
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [completed, setCompleted] = useState(task.completed);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [projectTitle, setProjectTitle] = useState(""); // New state to store the project title
+
   const [newTask, setNewTask] = useState({ ...task }); // can't get changed task.completed state. newTask gets the updated change
 
   // state not working as expected
@@ -12,6 +14,10 @@ const Task = ({ task, setSelectedProject, activeProjectId }) => {
 
   const handleDescriptionClick = () => {
     console.log("Description opened");
+    const project = projects.find((project) => project.id === task.project);
+    if (project) {
+      setProjectTitle(project.title);
+    }
     setDescriptionModal(true);
   };
 
@@ -54,7 +60,6 @@ const Task = ({ task, setSelectedProject, activeProjectId }) => {
   };
 
   //Delete Task
-
   const handleDeleteClick = () => {
     setDeleteModal(true);
   };
@@ -68,16 +73,24 @@ const Task = ({ task, setSelectedProject, activeProjectId }) => {
 
       if (response.ok) {
         console.log("Task deleted successfully");
-
-        const updatedList = await fetch(`${URL}projects/${activeProjectId}`);
-        const updatedListData = await updatedList.json();
-        setSelectedProject(updatedListData);
-        console.log(updatedListData);
+        updateList();
       } else {
         console.log("failed to delete task ");
       }
     } catch (error) {
       console.error("Error deleting task ", error);
+    }
+  };
+
+  // update task list after change
+  const updateList = async () => {
+    try {
+      const updatedList = await fetch(`${URL}projects/${activeProjectId}`);
+      const updatedListData = await updatedList.json();
+      setSelectedProject(updatedListData);
+      console.log(updatedListData);
+    } catch (error) {
+      console.error("Failed to update task list: ", error);
     }
   };
 
@@ -98,9 +111,27 @@ const Task = ({ task, setSelectedProject, activeProjectId }) => {
         <DeleteIcon onClick={handleDeleteClick} />
 
         {descriptionModal && (
-          <div className="task-modal">
-            <p>{task.description}</p>
-            <button onClick={handleCloseModal}></button>
+          <div className="description-modal-overlay">
+            <div className="description-modal card p-4 w-75">
+              <h4 className="mb-4 description-heading">{task.title}</h4>
+              <p className="mb-2">
+                <strong>Project:</strong> {projectTitle}
+              </p>
+              <p className="mb-2">
+                <strong>Priority:</strong> {task.priority}
+              </p>
+              <p className="mb-2">
+                <strong>Due Date:</strong> {task.due_date}
+              </p>
+              <p className="mb-2">
+                <strong>Details:</strong> {task.description}
+              </p>
+              <div className="mt-4">
+                <button type="text" className="btn btn-secondary" onClick={handleCloseModal}>
+                  Cancel
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
