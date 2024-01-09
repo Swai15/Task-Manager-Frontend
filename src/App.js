@@ -84,15 +84,17 @@ function App() {
     <div>
       {/* Project List */}
       {projectsVisible ? (
-        <div>
-          <h2>Projects</h2>
+        <div className="project-container-parent">
+          <h2>Task Manager</h2>
           <hr />
-          <div>
-            {projects.map((project) => (
-              <div key={project.id}>
-                <Project project={project} onClick={() => handleActiveProject(project)} />
-              </div>
-            ))}
+          <div className="project-container">
+            <div>
+              {projects.map((project) => (
+                <div key={project.id}>
+                  <Project project={project} onClick={() => handleActiveProject(project)} />
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Add project modal */}
@@ -110,9 +112,14 @@ function App() {
           <div className="back-button">
             <ArrowLeftIcon onClick={handleBackToProjects} />
           </div>
-          <h3>Tasks for {selectedProject.title}</h3>
-          <hr />
-
+          {/* Work on project icons */}
+          <div className="task-header">
+            <h3 className="task-title-header">📂 {selectedProject.title}</h3>
+          </div>
+          {/* Add task */}
+          <div className="task-add">
+            <AddTaskIcon onClick={handleAddTaskClick} />
+          </div>
           {/* Todays Tasks */}
           {todayTasks.length > 0 && (
             <>
@@ -174,9 +181,9 @@ function App() {
           )}
 
           {/* open add task form */}
-          <div className="task-add">
+          {/* <div className="task-add">
             <AddTaskIcon onClick={handleAddTaskClick} />
-          </div>
+          </div> */}
 
           {/* Add & submit task */}
           {taskModal && <TaskForm onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />}

@@ -124,7 +124,7 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
               name="project"
               id=""
               className="form-select"
-              value={formData.task.project ? formData.task.project : ""}
+              value={formData.task.project || ""}
               onChange={(e) =>
                 setFormData({
                   ...formData,
