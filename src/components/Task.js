@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DeleteIcon, EditIcon, InfoCircle } from "../icons/icons";
+import EditTaskForm from "./EditTaskForm";
 
 const Task = ({ task, projects, setSelectedProject, activeProjectId }) => {
   const [descriptionModal, setDescriptionModal] = useState(false);
@@ -9,9 +10,12 @@ const Task = ({ task, projects, setSelectedProject, activeProjectId }) => {
 
   const [newTask, setNewTask] = useState({ ...task }); // can't get changed task.completed state. newTask gets the updated change
 
+  const [editModal, setEditModal] = useState(false);
+
   // state not working as expected
   const URL = "http://127.0.0.1:8000/api/";
 
+  // description click
   const handleDescriptionClick = () => {
     console.log("Description opened");
     const project = projects.find((project) => project.id === task.project);
@@ -21,6 +25,16 @@ const Task = ({ task, projects, setSelectedProject, activeProjectId }) => {
     setDescriptionModal(true);
   };
 
+  //edit task click
+  const handleEditTaskCLick = () => {
+    setEditModal(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setEditModal(false);
+  };
+
+  // Description Modal
   const handleCloseModal = () => {
     setDescriptionModal(false);
   };
@@ -107,9 +121,10 @@ const Task = ({ task, projects, setSelectedProject, activeProjectId }) => {
       <p className="task-date">{formattedDate} </p>
       <div className="task-icons">
         <InfoCircle onClick={handleDescriptionClick} />
-        <EditIcon onClick={handleEditClick} />
+        <EditIcon onClick={handleEditTaskCLick} />
         <DeleteIcon onClick={handleDeleteClick} />
 
+        {/* Description modal */}
         {descriptionModal && (
           <div className="description-modal-overlay">
             <div className="description-modal card p-4 w-75">
@@ -135,6 +150,10 @@ const Task = ({ task, projects, setSelectedProject, activeProjectId }) => {
           </div>
         )}
 
+        {/* Edit Modal */}
+        {editModal && <EditTaskForm taskToEdit={task} projects={projects} onCloseEditModal={handleCloseEditModal} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />}
+
+        {/* Delete Modal */}
         {deleteModal && (
           <div className="delete-modal-overlay">
             <div className="delete-modal">
