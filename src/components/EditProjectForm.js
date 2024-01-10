@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { CloseIcon } from "../icons/icons";
 
-const ProjectForm = ({ onCloseProjectClick, setProjects, editProject, project }) => {
-  const [projectFormData, setProjectFormData] = useState({ title: "" });
+const ProjectForm = ({ onCloseProjectClick, setProjects, project }) => {
+  const [projectFormData, setProjectFormData] = useState({ title: project.title, tasks: [{ ...project.tasks }] });
 
   const URL = "http://127.0.0.1:8000/api/";
 
@@ -18,6 +18,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects, editProject, project })
   // fetch updated project list
   const updateProjectList = async () => {
     try {
+      console.log("Project edit list updated");
       const response = await fetch(URL + "projects/");
       const updatedData = await response.json();
       setProjects(updatedData);
@@ -29,13 +30,11 @@ const ProjectForm = ({ onCloseProjectClick, setProjects, editProject, project })
   // Submit Project
   const handleSubmitProject = async (e) => {
     e.preventDefault();
-    console.log(projectFormData.title);
+    console.log(JSON.stringify(projectFormData));
 
     try {
-      const method = "PUT";
-
       const response = await fetch(`${URL}projects/${project.id}/`, {
-        method: method,
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -68,7 +67,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects, editProject, project })
           {/* title */}
           <div className="mb-3">
             <label className="form-label"> Title:</label>
-            <input type="text" className="form-control" name="title" value={projectFormData.title} onChange={(e) => setProjectFormData({ title: e.target.value })} required />
+            <input type="text" className="form-control" name="title" value={projectFormData.title} onChange={(e) => setProjectFormData({ ...projectFormData, title: e.target.value })} required />
           </div>
 
           {/* submit  */}

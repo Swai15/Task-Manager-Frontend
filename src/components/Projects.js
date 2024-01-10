@@ -3,7 +3,7 @@ import { Card, Badge } from "react-bootstrap"; // Import Card and Badge from rea
 import { DeleteIcon, EditIcon } from "../icons/icons";
 import EditProjectForm from "./EditProjectForm";
 
-const Project = ({ project, onClick, setProjects }) => {
+const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
   const [editProjectModal, setEditProjectModal] = useState(false);
   const [deleteProjectModal, setDeleteProjectModal] = useState(false);
 
@@ -11,19 +11,24 @@ const Project = ({ project, onClick, setProjects }) => {
 
   // Edit Project
   const handleEditProjectClick = (e) => {
-    e.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+    }
     setEditProjectModal(true);
     console.log("Active Project ID: ", project.id);
   };
 
   const closeEditProjectClick = (e) => {
-    e.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+    }
     setEditProjectModal(false);
   };
 
   // Update project list
   const updateProjectList = async () => {
     try {
+      console.log("PROJECT edited list updated");
       const response = await fetch(URL + "projects/");
       const updatedData = await response.json();
       setProjects(updatedData);
@@ -34,7 +39,9 @@ const Project = ({ project, onClick, setProjects }) => {
 
   // deleteProject
   const handleDeleteProjectCLick = (e) => {
-    e.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+    }
     setDeleteProjectModal(true);
   };
 
@@ -89,8 +96,8 @@ const Project = ({ project, onClick, setProjects }) => {
             className="project-card-modify-icons
           "
           >
-            <EditIcon onClick={handleEditProjectClick} setProjects={setProjects} />
-            {editProjectModal && <EditProjectForm onCloseProjectClick={closeEditProjectClick} project={project} />}
+            <EditIcon onClick={handleEditProjectClick} />
+            {editProjectModal && <EditProjectForm setProjects={setProjects} onCloseProjectClick={closeEditProjectClick} project={project} />}
 
             <DeleteIcon onClick={handleDeleteProjectCLick} />
 

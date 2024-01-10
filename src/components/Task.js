@@ -12,7 +12,6 @@ const Task = ({ task, projects, setSelectedProject, activeProjectId }) => {
 
   const [editModal, setEditModal] = useState(false);
 
-  // state not working as expected
   const URL = "http://127.0.0.1:8000/api/";
 
   // description click
