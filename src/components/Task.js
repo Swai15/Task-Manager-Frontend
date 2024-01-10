@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { DeleteIcon, EditIcon, InfoCircle } from "../icons/icons";
 import EditTaskForm from "./EditTaskForm";
+import updateProjectList from "../utils/UpdateProjectList";
 
-const Task = ({ task, projects, setSelectedProject, activeProjectId }) => {
+const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId }) => {
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [completed, setCompleted] = useState(task.completed);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -87,6 +88,7 @@ const Task = ({ task, projects, setSelectedProject, activeProjectId }) => {
       if (response.ok) {
         console.log("Task deleted successfully");
         updateList();
+        updateProjectList(setProjects);
       } else {
         console.log("failed to delete task ");
       }
@@ -150,7 +152,7 @@ const Task = ({ task, projects, setSelectedProject, activeProjectId }) => {
         )}
 
         {/* Edit Modal */}
-        {editModal && <EditTaskForm taskToEdit={task} projects={projects} onCloseEditModal={handleCloseEditModal} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />}
+        {editModal && <EditTaskForm setProjects={setProjects} taskToEdit={task} projects={projects} onCloseEditModal={handleCloseEditModal} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />}
 
         {/* Delete Modal */}
         {deleteModal && (

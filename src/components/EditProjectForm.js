@@ -1,31 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { CloseIcon } from "../icons/icons";
+import updateProjectList from "../utils/UpdateProjectList";
 
 const ProjectForm = ({ onCloseProjectClick, setProjects, project }) => {
   const [projectFormData, setProjectFormData] = useState({ title: project.title, tasks: [{ ...project.tasks }] });
 
   const URL = "http://127.0.0.1:8000/api/";
-
-  // useEffect to set initial data for edit
-  // useEffect(() => {
-  //   if (editProject) {
-  //     setProjectFormData({
-  //       title: editProject.title,
-  //     });
-  //   }
-  // }, [editProject]);
-
-  // fetch updated project list
-  const updateProjectList = async () => {
-    try {
-      console.log("Project edit list updated");
-      const response = await fetch(URL + "projects/");
-      const updatedData = await response.json();
-      setProjects(updatedData);
-    } catch (error) {
-      console.error("Error fetching updated projects ", error);
-    }
-  };
 
   // Submit Project
   const handleSubmitProject = async (e) => {
@@ -43,7 +23,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects, project }) => {
 
       if (response.ok) {
         console.log("Project updated successfully");
-        updateProjectList();
+        updateProjectList(setProjects);
         onCloseProjectClick();
         setProjectFormData({
           title: "",

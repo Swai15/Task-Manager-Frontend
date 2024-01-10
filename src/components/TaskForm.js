@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { CloseIcon } from "../icons/icons";
+import updateProjectList from "../utils/UpdateProjectList";
 
-const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId }) => {
+const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId, setProjects }) => {
   const [projectsOptions, setProjectsOptions] = useState([]);
   const [formData, setFormData] = useState({
     task: {
@@ -17,7 +18,7 @@ const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId }) => 
     },
   });
 
-  // fetch projects for task field options
+  // fetch projects FOR TASK FIELD OPTIONS
   const URL = "http://127.0.0.1:8000/api/";
 
   const fetchProjects = async () => {
@@ -56,6 +57,7 @@ const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId }) => 
         const updatedList = await fetch(`${URL}projects/${activeProjectId}`);
         const updatedListData = await updatedList.json();
         setSelectedProject(updatedListData);
+        updateProjectList(setProjects);
         console.log(updatedListData);
 
         // empty task form values

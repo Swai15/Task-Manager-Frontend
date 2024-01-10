@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { CloseIcon } from "../icons/icons";
+import updateProjectList from "../utils/UpdateProjectList";
 
-const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, taskToEdit }) => {
+const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, taskToEdit, setProjects }) => {
   const [projectsOptions, setProjectsOptions] = useState([]);
   const isEditing = !!taskToEdit;
 
@@ -42,7 +43,7 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
     console.log(formData.task);
 
     try {
-      const response = await fetch(`${URL}tasks/${taskToEdit.id}`, {
+      const response = await fetch(`${URL}tasks/${taskToEdit.id}/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -57,6 +58,7 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
         const updatedList = await fetch(`${URL}projects/${activeProjectId}`);
         const updatedListData = await updatedList.json();
         setSelectedProject(updatedListData);
+        updateProjectList(setProjects);
         console.log(updatedListData);
 
         // empty task form values

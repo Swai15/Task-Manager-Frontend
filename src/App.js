@@ -120,6 +120,9 @@ function App() {
           <div className="task-add">
             <AddTaskIcon onClick={handleAddTaskClick} />
           </div>
+          {/* Add task modal */}
+          {taskModal && <TaskForm setProjects={setProjects} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />}
+
           {/* Todays Tasks */}
           {todayTasks.length > 0 && (
             <>
@@ -127,7 +130,7 @@ function App() {
               <div>
                 {todayTasks.map((task) => (
                   <div key={task.id} className="col-md-4 mb-3">
-                    <Task task={task} projects={projects} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
+                    <Task setProjects={setProjects} task={task} projects={projects} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
                   </div>
                 ))}
               </div>
@@ -142,7 +145,7 @@ function App() {
               <div>
                 {tomorrowTasks.map((task) => (
                   <div key={task.id} className="col-md-4 mb-3">
-                    <Task task={task} projects={projects} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
+                    <Task setProjects={setProjects} task={task} projects={projects} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
                   </div>
                 ))}
               </div>
@@ -157,7 +160,7 @@ function App() {
               <div>
                 {futureTasks.map((task) => (
                   <div key={task.id} className="col-md-4 mb-3">
-                    <Task task={task} projects={projects} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
+                    <Task setProjects={setProjects} task={task} projects={projects} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
                   </div>
                 ))}
               </div>
@@ -172,7 +175,7 @@ function App() {
               <div className="row">
                 {overdueTasks.map((task) => (
                   <div key={task.id} className="col-mb-14mb-3">
-                    <Task task={task} onCloseTaskClick={handleCloseTaskClick} projects={projects} setProjects={setProjects} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
+                    <Task setProjects={setProjects} task={task} onCloseTaskClick={handleCloseTaskClick} projects={projects} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
                   </div>
                 ))}
               </div>
@@ -184,9 +187,6 @@ function App() {
           {/* <div className="task-add">
             <AddTaskIcon onClick={handleAddTaskClick} />
           </div> */}
-
-          {/* Add & submit task */}
-          {taskModal && <TaskForm onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />}
         </div>
       )}
       {/* End of displayed tasks */}
