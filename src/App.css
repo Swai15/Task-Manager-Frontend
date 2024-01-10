@@ -115,10 +115,6 @@ h4 {
   font-size: 100px;
 }
 
-
-
-
-
 .project-close {
   margin: -10px;
   /* border: 1px solid black; */
@@ -135,7 +131,7 @@ h4 {
 }
 
 /* delete */
-.delete-modal-overlay, .description-modal-overlay, .project-modal-overlay, .task-modal-overlay {
+.delete-modal-overlay, .description-modal-overlay, .project-modal-overlay, .task-modal-overlay, .delete-project-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -146,14 +142,32 @@ h4 {
   justify-content: center;
   align-items: center;
   z-index: 1;
+  cursor: auto;
 }
 
-.delete-modal, .description-modal, .project-modal, .task-modal {
+.delete-modal, .description-modal, .project-modal, .task-modal, .delete-project-modal {
   background: white;
   padding: 20px;
   border-radius: 8px;
   width: auto;
   height: auto;
+}
+
+.delete-project-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.delete-project-modal-icons {
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: center;
+}
+
+.delete-project-modal-icons button {
+  margin: 10px;
 }
 
 
@@ -162,14 +176,14 @@ h4 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 15px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 
 }
 
 .project-card-contents {
   margin-left: 9px;
   margin-top: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.308);
+  /* border: 1px solid rgba(0, 0, 0, 0.308); */
   height: auto;
 }
 
@@ -225,4 +239,13 @@ h4 {
 .add-task-icon:hover {
   transform: rotate(90deg) scale(1.1);
   /* Rotate 90 degrees on hover */
+}
+
+/* Progress bar */
+.progress {
+  /* margin-top: 142px; */
+}
+
+.project-card-modify-icons {
+  z-index: 3;
 }

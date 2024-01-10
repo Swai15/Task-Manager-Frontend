@@ -117,7 +117,7 @@ const Task = ({ task, projects, setSelectedProject, activeProjectId }) => {
     <div className="task-row" key={task.id}>
       <input type="checkbox" checked={completed} onChange={handleEditClick} />
 
-      <p className={newTask.completed ? "task-title" : "task-title completed"}>{task.title}</p>
+      <p className={newTask.completed ? "task-title completed" : "task-title "}>{task.title}</p>
       <p className="task-date">{formattedDate} </p>
       <div className="task-icons">
         <InfoCircle onClick={handleDescriptionClick} />

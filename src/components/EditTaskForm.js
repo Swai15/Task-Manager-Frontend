@@ -3,7 +3,7 @@ import { CloseIcon } from "../icons/icons";
 
 const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, taskToEdit }) => {
   const [projectsOptions, setProjectsOptions] = useState([]);
-  const isEditing = !!taskToEdit; // Check if editing or creating a new task
+  const isEditing = !!taskToEdit;
 
   const [formData, setFormData] = useState({
     task: {
@@ -39,6 +39,7 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
   // Handle both creation and editing of tasks
   const handleSubmitTask = async (e) => {
     e.preventDefault();
+    console.log(formData.task);
 
     try {
       const response = await fetch(`${URL}tasks/${taskToEdit.id}`, {
