@@ -93,24 +93,30 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
 
           {/* title */}
           <div className="mb-3">
-            <label className="form-label"> Title:</label>
+            <label className="form-label">
+              {" "}
+              Title <span className="text-danger">*</span>
+            </label>
             <input type="text" className="form-control" name="title" value={formData.task.title} onChange={(e) => setFormData({ ...formData, task: { ...formData.task, title: e.target.value } })} />
           </div>
 
           {/* description */}
           <div className="mb-3">
-            <label className="form-label"> Description:</label>
+            <label className="form-label"> Description</label>
             <input type="text" className="form-control" name="description" value={formData.task.description} onChange={(e) => setFormData({ ...formData, task: { ...formData.task, description: e.target.value } })} />
           </div>
 
           {/* due date */}
           <div className="mb-3">
-            <label className="form-label"> Due Date:</label>
+            <label className="form-label">
+              {" "}
+              Due Date <span className="text-danger">*</span>
+            </label>
             <input type="date" className="form-control" name="due_date" value={formData.task.due_date} onChange={(e) => setFormData({ ...formData, task: { ...formData.task, due_date: e.target.value } })} />
           </div>
 
           {/* priority */}
-          <div>
+          <div className=" mb-3">
             <label className="form-label">Priority:</label>
             <select name="priority" id="" className="form-select" value={formData.task.priority} onChange={(e) => setFormData({ ...formData, task: { ...formData.task, priority: e.target.value } })}>
               <option value="Low">Low</option>
@@ -121,7 +127,9 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
 
           {/* project */}
           <div className=" mb-3">
-            <label className="form-label">Project:</label>
+            <label className="form-label">
+              Project <span className="text-danger">*</span>
+            </label>
             <select
               required
               name="project"

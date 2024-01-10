@@ -51,7 +51,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
   // update checked status in db
   const handleUpdatedTask = async (updatedTask) => {
     try {
-      const response = await fetch(`${URL}tasks/${updatedTask.id}`, {
+      const response = await fetch(`${URL}tasks/${updatedTask.id}/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -100,7 +100,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
   // update task list after change
   const updateList = async () => {
     try {
-      const updatedList = await fetch(`${URL}projects/${activeProjectId}`);
+      const updatedList = await fetch(`${URL}projects/${activeProjectId}/`);
       const updatedListData = await updatedList.json();
       setSelectedProject(updatedListData);
       console.log(updatedListData);
@@ -139,9 +139,13 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
               <p className="mb-2">
                 <strong>Due Date:</strong> {task.due_date}
               </p>
-              <p className="mb-2">
-                <strong>Details:</strong> {task.description}
-              </p>
+
+              {task.description && (
+                <p className="mb-2">
+                  <strong>Details:</strong> {task.description}
+                </p>
+              )}
+
               <div className="mt-4">
                 <button type="text" className="btn btn-secondary" onClick={handleCloseModal}>
                   Cancel
