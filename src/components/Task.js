@@ -8,6 +8,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
   const [completed, setCompleted] = useState(task.completed);
   const [deleteModal, setDeleteModal] = useState(false);
   const [projectTitle, setProjectTitle] = useState(""); // New state to store the project title
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [newTask, setNewTask] = useState({ ...task }); // can't get changed task.completed state. newTask gets the updated change
 
@@ -18,6 +19,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
   // description click
   const handleDescriptionClick = () => {
     console.log("Description opened");
+    setIsModalOpen(true);
     const project = projects.find((project) => project.id === task.project);
     if (project) {
       setProjectTitle(project.title);
@@ -25,18 +27,22 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
     setDescriptionModal(true);
   };
 
+  // Description Modal
+  const handleCloseModal = () => {
+    console.log("Description closed");
+    setDescriptionModal(false);
+    setIsModalOpen(false);
+  };
+
   //edit task click
   const handleEditTaskCLick = () => {
     setEditModal(true);
+    setIsModalOpen(true);
   };
 
   const handleCloseEditModal = () => {
     setEditModal(false);
-  };
-
-  // Description Modal
-  const handleCloseModal = () => {
-    setDescriptionModal(false);
+    setIsModalOpen(false);
   };
 
   // Edit Completed checkbox
@@ -76,9 +82,11 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
   //Delete Task
   const handleDeleteClick = () => {
     setDeleteModal(true);
+    setIsModalOpen(true);
   };
   const handleDeleteModal = () => {
     setDeleteModal(false);
+    setIsModalOpen(false);
   };
 
   const handleDeleteConfirmation = async (e) => {
@@ -109,14 +117,29 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
     }
   };
 
+  // Get priority classes
+  const setPriorityClass = () => {
+    switch (task.priority) {
+      case "Low":
+        return "low-priority-border";
+      case "Medium":
+        return "medium-priority-border";
+      case "High":
+        return "high-priority-border";
+      default:
+        return "";
+    }
+  };
+
   // Format date, month and date
   const taskDueDate = new Date(task.due_date);
   const options = { day: "numeric", month: "long" };
   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(taskDueDate);
 
   return (
-    <div className="task-row" key={task.id}>
-      <input type="checkbox" checked={completed} onChange={handleEditClick} />
+    // <div className="task-row task-row-style" key={task.id}>
+    <div className={`task-row task-row-style ${isModalOpen ? "modal-open" : "modal-close"}`} key={task.id}>
+      <input type="checkbox" checked={completed} onChange={handleEditClick} className={setPriorityClass()} />
 
       <p className={newTask.completed ? "task-title completed" : "task-title "}>{task.title}</p>
       <p className="task-date">{formattedDate} </p>
@@ -127,7 +150,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
 
         {/* Description modal */}
         {descriptionModal && (
-          <div className="description-modal-overlay">
+          <div className={`description-modal-overlay ${isModalOpen ? "modal-open" : ""}`}>
             <div className="description-modal card p-4 w-75">
               <h4 className="mb-4 description-heading">{task.title}</h4>
               <p className="mb-2">
@@ -139,7 +162,6 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
               <p className="mb-2">
                 <strong>Due Date:</strong> {task.due_date}
               </p>
-
               {task.description && (
                 <p className="mb-2">
                   <strong>Details:</strong> {task.description}

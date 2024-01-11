@@ -151,6 +151,7 @@ h4 {
   border-radius: 8px;
   width: auto;
   height: auto;
+  z-index: 100;
 }
 
 .delete-project-modal {
@@ -158,6 +159,7 @@ h4 {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  z-index: 101;
 }
 
 .delete-project-modal-icons {
@@ -249,3 +251,31 @@ h4 {
 .project-card-modify-icons {
   z-index: 3;
 }
+
+/* Priority boarder */
+.low-priority-boarder {
+  color: blue;
+}
+
+
+.task-row-style {
+  padding-left: 5px;
+  height: 33px;
+  background-color: #f0f0f0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.task-row-style:hover {
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+/* .modal-close:hover {
+  transform: translateY(-1px);
+
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+} */
+
+/* .modal-open:hover {
+  transform: none;
+  box-shadow: none;
+} */

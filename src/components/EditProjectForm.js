@@ -46,7 +46,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects, project }) => {
 
           {/* title */}
           <div className="mb-3">
-            <label className="form-label"> Title:</label>
+            <label className="form-label"> Title</label>
             <input type="text" className="form-control" name="title" value={projectFormData.title} onChange={(e) => setProjectFormData({ ...projectFormData, title: e.target.value })} required />
           </div>
 

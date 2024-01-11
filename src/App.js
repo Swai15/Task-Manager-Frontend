@@ -7,6 +7,8 @@ import { AddProjectIcon, AddTaskIcon, ArrowLeftIcon, CloseIcon } from "./icons/i
 import OrganizeTasksByDate from "./utils/OrganizeTasksByDate";
 import TaskForm from "./components/TaskForm";
 import ProjectForm from "./components/ProjectForm";
+import ProjectList from "./components/ProjectList";
+import TaskList from "./components/TaskList";
 
 function App() {
   const [projects, setProjects] = useState([]);
@@ -84,110 +86,38 @@ function App() {
     <div>
       {/* Project List */}
       {projectsVisible ? (
+        // <ProjectList project={project} setProjects={setProjects} hand />
+
         <div className="project-container-parent">
           <h2>Task Manager</h2>
           <hr />
-          <div className="project-container">
-            <div>
-              {projects.map((project) => (
-                <div key={project.id}>
-                  <Project project={project} setProjects={setProjects} onClick={() => handleActiveProject(project)} />
-                </div>
-              ))}
-            </div>
-          </div>
+          <ProjectList projects={projects} setProjects={setProjects} handleActiveProject={handleActiveProject} />
 
           {/* Add project modal */}
           <div className="project-add">
             <AddProjectIcon onClick={handleAddProjectClick} />
           </div>
-
           {projectModal && <ProjectForm onCloseProjectClick={handleCloseProjectClick} setProjects={setProjects} />}
         </div>
       ) : null}
 
       {/* Task List */}
       {selectedProject && (
-        <div className="selected-project-tasks">
-          <div className="back-button">
-            <ArrowLeftIcon onClick={handleBackToProjects} />
-          </div>
-          {/* Work on project icons */}
-          <div className="task-header">
-            <h3 className="task-title-header">📂 {selectedProject.title}</h3>
-          </div>
-          {/* Add task */}
-          <div className="task-add">
-            <AddTaskIcon onClick={handleAddTaskClick} />
-          </div>
-          {/* Add task modal */}
-          {taskModal && <TaskForm setProjects={setProjects} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />}
-
-          {/* Todays Tasks */}
-          {todayTasks.length > 0 && (
-            <>
-              <h4 className="task-topic">Today </h4>
-              <div>
-                {todayTasks.map((task) => (
-                  <div key={task.id} className="col-md-4 mb-3">
-                    <Task setProjects={setProjects} task={task} projects={projects} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
-                  </div>
-                ))}
-              </div>
-              <hr />
-            </>
-          )}
-
-          {/* Tomorrow's tasks */}
-          {tomorrowTasks.length > 0 && (
-            <>
-              <h4 className="task-topic">Tomorrow</h4>
-              <div>
-                {tomorrowTasks.map((task) => (
-                  <div key={task.id} className="col-md-4 mb-3">
-                    <Task setProjects={setProjects} task={task} projects={projects} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
-                  </div>
-                ))}
-              </div>
-              <hr />
-            </>
-          )}
-
-          {/* Future tasks */}
-          {futureTasks.length > 0 && (
-            <>
-              <h4 className="task-topic">Future </h4>
-              <div>
-                {futureTasks.map((task) => (
-                  <div key={task.id} className="col-md-4 mb-3">
-                    <Task setProjects={setProjects} task={task} projects={projects} onCloseTaskClick={handleCloseTaskClick} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
-                  </div>
-                ))}
-              </div>
-              <hr />
-            </>
-          )}
-
-          {/* Overdue tasks */}
-          {overdueTasks.length > 0 && (
-            <>
-              <h4 className="task-topic">Overdue Heading</h4>
-              <div className="row">
-                {overdueTasks.map((task) => (
-                  <div key={task.id} className="col-mb-14mb-3">
-                    <Task setProjects={setProjects} task={task} onCloseTaskClick={handleCloseTaskClick} projects={projects} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
-                  </div>
-                ))}
-              </div>
-              <hr />
-            </>
-          )}
-
-          {/* open add task form */}
-          {/* <div className="task-add">
-            <AddTaskIcon onClick={handleAddTaskClick} />
-          </div> */}
-        </div>
+        <TaskList
+          todayTasks={todayTasks}
+          tomorrowTasks={tomorrowTasks}
+          futureTasks={futureTasks}
+          overdueTasks={overdueTasks}
+          setProjects={setProjects}
+          projects={projects}
+          onCloseTaskClick={handleCloseTaskClick}
+          setSelectedProject={setSelectedProject}
+          activeProjectId={activeProjectId}
+          handleBackToProjects={handleBackToProjects}
+          handleAddTaskClick={handleAddTaskClick}
+          taskModal={taskModal}
+          handleCloseTaskClick={handleCloseTaskClick}
+        />
       )}
       {/* End of displayed tasks */}
     </div>
