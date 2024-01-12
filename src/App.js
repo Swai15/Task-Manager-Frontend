@@ -5,13 +5,11 @@ import AllPages from "./pages/AllPages";
 
 const App = () => {
   return (
-    <AuthProvider>
-      <div className="all-pages">
-        <BrowserRouter>
-          <AllPages />
-        </BrowserRouter>
-      </div>
-    </AuthProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <AllPages />
+      </AuthProvider>
+    </BrowserRouter>
   );
 };
 
