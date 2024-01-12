@@ -9,6 +9,7 @@ import TaskForm from "../components/TaskForm";
 import ProjectForm from "../components/ProjectForm";
 import ProjectList from "../components/ProjectList";
 import TaskList from "../components/TaskList";
+import Header from "../components/Header";
 
 function HomePage() {
   const [projects, setProjects] = useState([]);
@@ -89,7 +90,7 @@ function HomePage() {
         // <ProjectList project={project} setProjects={setProjects} hand />
 
         <div className="project-container-parent">
-          <h2>Task Manager</h2>
+          <Header />
           <hr />
           <ProjectList projects={projects} setProjects={setProjects} handleActiveProject={handleActiveProject} />
 
