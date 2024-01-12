@@ -4,7 +4,7 @@ import "../styles/LoginPage.css";
 const LoginPage = () => {
   return (
     <div className=" login-container ">
-      <div className="card p-4">
+      <div className="card login-card p-4">
         <form>
           {/* username */}
           <div className="mb-3">
