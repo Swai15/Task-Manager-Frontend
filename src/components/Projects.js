@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Card, Badge } from "react-bootstrap"; // Import Card and Badge from react-bootstrap
 import { DeleteIcon, EditIcon } from "../icons/icons";
 import EditProjectForm from "./EditProjectForm";
+import AuthContext from "../context/AuthContext";
 
 const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
+  let { authTokens } = useContext(AuthContext);
   const [editProjectModal, setEditProjectModal] = useState(false);
   const [deleteProjectModal, setDeleteProjectModal] = useState(false);
 
@@ -28,7 +30,7 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
   // Update project list
   const updateProjectList = async () => {
     try {
-      console.log("PROJECT edited list updated");
+      console.log("project edited list updated");
       const response = await fetch(URL + "projects/");
       const updatedData = await response.json();
       setProjects(updatedData);

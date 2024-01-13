@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Task from "../components/Task";
 import Project from "../components/Projects";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -10,8 +10,10 @@ import ProjectForm from "../components/ProjectForm";
 import ProjectList from "../components/ProjectList";
 import TaskList from "../components/TaskList";
 import Header from "../components/Header";
+import AuthContext from "../context/AuthContext";
 
 function HomePage() {
+  const { authTokens } = useContext(AuthContext);
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [projectsVisible, setProjectsVisible] = useState(true);
@@ -24,13 +26,35 @@ function HomePage() {
   // fetch all projects
   const fetchProjects = async () => {
     try {
-      const response = await fetch(URL + "/projects");
-      const data = await response.json();
-      setProjects(data);
+      const response = await fetch(URL + "/projects/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
+        },
+      });
+      if (response.ok) {
+        let data = await response.json();
+        setProjects(data);
+      } else {
+        console.error("Error fetching projects: ", response.status);
+        console.log(response);
+      }
     } catch (error) {
       console.error("Error fetching projects: ", error);
     }
   };
+
+  // fetch all projects
+  // const fetchProjects = async () => {
+  //   try {
+  //     const response = await fetch(URL + "/projects/");
+  //     const data = await response.json();
+  //     setProjects(data);
+  //   } catch (error) {
+  //     console.error("Error fetching projects: ", error);
+  //   }
+  // };
 
   // display tasks for projects clicked
   const handleActiveProject = (project) => {

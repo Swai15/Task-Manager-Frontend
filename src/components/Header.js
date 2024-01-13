@@ -8,9 +8,9 @@ const Header = () => {
     <div className="header">
       <h3>Task Manager</h3>
 
-      {user ? <p onClick={logoutUser}>Logout</p> : <Link to="login">Login</Link>}
+      {user.username ? <p onClick={logoutUser}>Logout</p> : <Link to="login">Login</Link>}
 
-      {user && <p>Hello {user.username}</p>}
+      {user.username ? <p>Hello {user.username}</p> : <p>Guest</p>}
     </div>
   );
 };
