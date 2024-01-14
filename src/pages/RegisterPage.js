@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import "../styles/LoginRegister.css";
 
 const RegisterPage = () => {
-  const { registerUser } = useContext(AuthContext);
+  const { registerUser, registrationErrors } = useContext(AuthContext);
   const [formUserData, setFormUserData] = useState({
     username: "",
     first_name: "",
@@ -26,8 +26,9 @@ const RegisterPage = () => {
     } else {
       setPasswordMatch(true);
     }
+    registerUser(formUserData);
 
-    console.log("User details submitted");
+    // console.log("User details submitted");
   };
   return (
     <div className="login-container">
@@ -115,6 +116,18 @@ const RegisterPage = () => {
               Register
             </button>
           </div>
+
+          {registrationErrors && (
+            <div className="alert alert-danger register-error-alert">
+              {Object.keys(registrationErrors).map((field) => (
+                <div key={field}>
+                  {registrationErrors[field].map((error) => (
+                    <p key={error}>{error}</p>
+                  ))}
+                </div>
+              ))}
+            </div>
+          )}
         </form>
       </div>
     </div>

@@ -56,3 +56,10 @@ body {}
 .register-link-style {
   margin-left: 5px;
 }
+
+.register-error-alert {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
