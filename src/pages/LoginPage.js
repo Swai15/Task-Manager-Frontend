@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import "../styles/LoginPage.css";
 import AuthContext from "../context/AuthContext";
 import Header from "../components/Header";
@@ -31,6 +32,14 @@ const LoginPage = () => {
               <button type="submit" className="btn btn-primary">
                 Login
               </button>
+            </div>
+            <div className="register-link">
+              <p>
+                Don't have an account?
+                <Link to="/register" className="register-link-style">
+                  Register
+                </Link>
+              </p>
             </div>
           </form>
         </div>

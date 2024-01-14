@@ -13,7 +13,7 @@ import Header from "../components/Header";
 import AuthContext from "../context/AuthContext";
 
 function HomePage() {
-  const { authTokens } = useContext(AuthContext);
+  const { authTokens, logoutUser } = useContext(AuthContext);
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [projectsVisible, setProjectsVisible] = useState(true);
@@ -36,6 +36,8 @@ function HomePage() {
       if (response.ok) {
         let data = await response.json();
         setProjects(data);
+      } else if (response.statusText === "Unauthorized") {
+        logoutUser();
       } else {
         console.error("Error fetching projects: ", response.status);
         console.log(response);

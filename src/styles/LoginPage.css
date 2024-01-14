@@ -31,3 +31,28 @@ body {}
 
   /* margin-bottom: 100px; */
 }
+
+.login-buttons {
+  display: flex;
+  justify-content: center;
+  display: center;
+  /* gap: 10px; */
+
+}
+
+.register-link {
+  display: flex;
+  justify-content: center;
+  display: center;
+  margin-top: 15px;
+  /* opacity: 0.75; */
+  color: rgba(0, 0, 0, 0.788);
+
+
+}
+
+
+
+.register-link-style {
+  margin-left: 5px;
+}
