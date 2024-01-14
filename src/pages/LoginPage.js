@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import "../styles/LoginPage.css";
+import "../styles/LoginRegister.css";
 import AuthContext from "../context/AuthContext";
 import Header from "../components/Header";
 
