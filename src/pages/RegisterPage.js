@@ -6,6 +6,7 @@ import "../styles/LoginRegister.css";
 
 const RegisterPage = () => {
   const { registerUser, registrationErrors } = useContext(AuthContext);
+  const [registrationLoading, setRegistrationLoading] = useState(false);
   const [formUserData, setFormUserData] = useState({
     username: "",
     first_name: "",
@@ -26,6 +27,8 @@ const RegisterPage = () => {
     } else {
       setPasswordMatch(true);
     }
+    console.log(e.target.Username.value);
+    console.log(e.target.Password.value);
     registerUser(formUserData);
 
     // console.log("User details submitted");
@@ -44,7 +47,7 @@ const RegisterPage = () => {
                 <label htmlFor="username" className="form-label">
                   Username <span className="text-danger">*</span>
                 </label>
-                <input type="text" required className="form-control" id="register-username" name="username" value={formUserData.username} onChange={(e) => setFormUserData({ ...formUserData, username: e.target.value })} />
+                <input type="text" required className="form-control" id="register-username" name="Username" value={formUserData.username} onChange={(e) => setFormUserData({ ...formUserData, username: e.target.value })} />
               </div>
 
               {/* First Name */}
@@ -85,7 +88,7 @@ const RegisterPage = () => {
                   required
                   className={`form-control ${!passwordMatch ? "is-invalid" : ""}`}
                   id="register-password"
-                  name="password"
+                  name="Password"
                   value={formUserData.password}
                   onChange={(e) => setFormUserData({ ...formUserData, password: e.target.value })}
                 />

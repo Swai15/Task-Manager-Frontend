@@ -36,12 +36,12 @@ export const AuthProvider = ({ children }) => {
         // console.log("data tokens", data.tokens);
         setAuthTokens(data.tokens);
 
-        // console.log("data token access", data.tokens.access);
+        console.log("data token access", data.tokens.access);
         let logUser = jwtDecode(data.tokens.access);
-        console.log("logUser: ", logUser);
+        console.log("decoded data.tokens.access: ", logUser);
         setUser(jwtDecode(data.tokens.access));
         localStorage.setItem("authTokens", JSON.stringify(data.tokens));
-        history("/");
+        // history("/");
       } else {
         setRegistrationErrors(data);
         console.log("Registration failed ", data);
@@ -51,14 +51,17 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  let loginUser = async (e) => {
+  let loginUser = async (e, inputUsername, inputPassword) => {
     e.preventDefault();
+
+    // let inputUsername = e.target.Username.value;
+    // let inputPassword = e.target.Password.value;
     let response = await fetch("http://127.0.0.1:8000/api/token/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username: e.target.loginUsername.value, password: e.target.loginPassword.value }),
+      body: JSON.stringify({ username: inputUsername, password: inputPassword }),
     });
     const data = await response.json();
     console.log("data: ", data);
