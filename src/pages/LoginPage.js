@@ -5,13 +5,17 @@ import AuthContext from "../context/AuthContext";
 import Header from "../components/Header";
 
 const LoginPage = () => {
-  let { loginUser } = useContext(AuthContext);
+  let { loginUser, loginErrors, setLoginErrors } = useContext(AuthContext);
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     let inputUsername = e.target.Username.value;
     let inputPassword = e.target.Password.value;
     loginUser(e, inputUsername, inputPassword);
+  };
+
+  const handleErrorState = () => {
+    setLoginErrors(null);
   };
 
   return (
@@ -25,14 +29,14 @@ const LoginPage = () => {
               <label htmlFor="username" className="form-label">
                 Enter a username
               </label>
-              <input type="text" className="form-control" id="login-username" name="Username" />
+              <input type="text" onChange={handleErrorState} className="form-control" id="login-username" name="Username" />
             </div>
             {/* password */}
             <div className="mb-3">
               <label htmlFor="password" className="form-label">
                 Enter a password
               </label>
-              <input type="password" className="form-control" id="login-password" name="Password" />
+              <input type="password" onChange={handleErrorState} className="form-control" id="login-password" name="Password" />
             </div>
             {/* buttons */}
             <div className="login-buttons">
@@ -50,6 +54,11 @@ const LoginPage = () => {
             </div>
           </form>
         </div>
+        {loginErrors && (
+          <div className="alert alert-danger mt-0 register-error-alert">
+            <p>{loginErrors.detail}</p>
+          </div>
+        )}
       </div>
     </div>
   );

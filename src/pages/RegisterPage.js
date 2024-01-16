@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import "../styles/LoginRegister.css";
 
 const RegisterPage = () => {
-  const { registerUser, registrationErrors } = useContext(AuthContext);
+  const { registerUser, loginUser, registrationErrors } = useContext(AuthContext);
   const [registrationLoading, setRegistrationLoading] = useState(false);
   const [formUserData, setFormUserData] = useState({
     username: "",
@@ -17,8 +17,10 @@ const RegisterPage = () => {
   });
   const [passwordMatch, setPasswordMatch] = useState(true);
 
-  const handleRegisterSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
+    let inputUsername = e.target.Username.value;
+    let inputPassword = e.target.Password.value;
 
     if (formUserData.password !== formUserData.confirm_password) {
       setPasswordMatch(false);
@@ -27,12 +29,29 @@ const RegisterPage = () => {
     } else {
       setPasswordMatch(true);
     }
-    console.log(e.target.Username.value);
-    console.log(e.target.Password.value);
-    registerUser(formUserData);
 
-    // console.log("User details submitted");
+    setRegistrationLoading(true);
+
+    try {
+      await registerUser(formUserData);
+      console.log("proceed with login");
+      await loginUser(e, inputUsername, inputPassword);
+    } catch (error) {
+      console.log("Registration or login failed: ", error);
+    } finally {
+      setRegistrationLoading(false);
+    }
+
+    // registerUser(formUserData)
+    //   .then((registrationResponse) => {
+    //     console.log("proceed with login");
+    //     return loginUser(e, inputUsername, inputPassword);
+    //   })
+    //   .catch((error) => {
+    //     console.log("Registration or login failed: ", error);
+    //   });
   };
+
   return (
     <div className="login-container">
       <h3>Register</h3>
@@ -119,6 +138,8 @@ const RegisterPage = () => {
               Register
             </button>
           </div>
+
+          {registrationLoading && <div>Loading...</div>}
 
           {registrationErrors && (
             <div className="alert alert-danger register-error-alert">

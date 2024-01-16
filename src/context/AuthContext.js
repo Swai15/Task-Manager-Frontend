@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const [registrationErrors, setRegistrationErrors] = useState(null);
+  const [loginErrors, setLoginErrors] = useState(null);
 
   const history = useNavigate();
 
@@ -42,20 +43,24 @@ export const AuthProvider = ({ children }) => {
         setUser(jwtDecode(data.tokens.access));
         localStorage.setItem("authTokens", JSON.stringify(data.tokens));
         // history("/");
+        return data;
       } else {
         setRegistrationErrors(data);
-        console.log("Registration failed ", data);
+        // console.log("Registration failed ", data);
+        throw new Error("Registration Failed");
       }
     } catch (error) {
       console.error("Error during registration ", error);
+      throw new Error("Error during registration");
     }
   };
 
+  // Login Users
   let loginUser = async (e, inputUsername, inputPassword) => {
     e.preventDefault();
 
-    // let inputUsername = e.target.Username.value;
-    // let inputPassword = e.target.Password.value;
+    setLoginErrors(null);
+
     let response = await fetch("http://127.0.0.1:8000/api/token/", {
       method: "POST",
       headers: {
@@ -72,7 +77,8 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("authTokens", JSON.stringify(data));
       history("/");
     } else {
-      alert("Something went wrong!");
+      setLoginErrors(data);
+      console.log("Login failed");
     }
   };
 
@@ -84,6 +90,7 @@ export const AuthProvider = ({ children }) => {
     history("/login");
   };
 
+  // Update token
   let updateToken = async () => {
     console.log("Update Token Called");
     let response = await fetch("http://127.0.0.1:8000/api/token/refresh/", {
@@ -114,6 +121,8 @@ export const AuthProvider = ({ children }) => {
     user: user,
     authTokens: authTokens,
     registrationErrors: registrationErrors,
+    loginErrors: loginErrors,
+    setLoginErrors: setLoginErrors,
     registerUser: registerUser,
     loginUser: loginUser,
     logoutUser: logoutUser,
