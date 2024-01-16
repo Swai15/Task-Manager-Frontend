@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { CloseIcon } from "../icons/icons";
 import updateProjectList from "../utils/UpdateProjectList";
+import AuthContext from "../context/AuthContext";
 
 const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId, setProjects }) => {
+  const { authTokens } = useContext(AuthContext);
   const [projectsOptions, setProjectsOptions] = useState([]);
   const [formData, setFormData] = useState({
     task: {
@@ -23,7 +25,13 @@ const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId, setPr
 
   const fetchProjects = async () => {
     try {
-      const response = await fetch(URL + "projects/");
+      const response = await fetch(URL + "projects/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
+        },
+      });
       const data = await response.json();
       setProjectsOptions(data);
     } catch (error) {
@@ -46,18 +54,24 @@ const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId, setPr
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
         },
-        body: JSON.stringify(formData.task),
       });
 
       // update state after successful post
       if (response.ok) {
         console.log("Task submitted successfully");
 
-        const updatedList = await fetch(`${URL}projects/${activeProjectId}`);
+        const updatedList = await fetch(`${URL}projects/${activeProjectId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + String(authTokens.access),
+          },
+        });
         const updatedListData = await updatedList.json();
         setSelectedProject(updatedListData);
-        updateProjectList(setProjects);
+        updateProjectList(setProjects, authTokens);
         console.log(updatedListData);
 
         // empty task form values

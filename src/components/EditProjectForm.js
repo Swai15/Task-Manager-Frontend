@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { CloseIcon } from "../icons/icons";
 import updateProjectList from "../utils/UpdateProjectList";
+import AuthContext from "../context/AuthContext";
 
 const ProjectForm = ({ onCloseProjectClick, setProjects, project }) => {
+  const { authTokens } = useContext(AuthContext);
   const [projectFormData, setProjectFormData] = useState({ title: project.title, tasks: [{ ...project.tasks }] });
 
   const URL = "http://127.0.0.1:8000/api/";
-
   // Submit Project
   const handleSubmitProject = async (e) => {
     e.preventDefault();
@@ -17,13 +18,13 @@ const ProjectForm = ({ onCloseProjectClick, setProjects, project }) => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
         },
-        body: JSON.stringify(projectFormData),
       });
 
       if (response.ok) {
         console.log("Project updated successfully");
-        updateProjectList(setProjects);
+        updateProjectList(setProjects, authTokens);
         onCloseProjectClick();
         setProjectFormData({
           title: "",

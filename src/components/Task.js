@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { DeleteIcon, EditIcon, InfoCircle } from "../icons/icons";
 import EditTaskForm from "./EditTaskForm";
 import updateProjectList from "../utils/UpdateProjectList";
+import AuthContext from "../context/AuthContext";
 
 const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId }) => {
+  const { authTokens } = createContext(AuthContext);
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [completed, setCompleted] = useState(task.completed);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -96,7 +98,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
       if (response.ok) {
         console.log("Task deleted successfully");
         updateList();
-        updateProjectList(setProjects);
+        updateProjectList(setProjects, authTokens);
       } else {
         console.log("failed to delete task ");
       }

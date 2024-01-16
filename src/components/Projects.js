@@ -31,9 +31,21 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
   const updateProjectList = async () => {
     try {
       console.log("project edited list updated");
-      const response = await fetch(URL + "projects/");
+      const response = await fetch(URL + "projects/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
+        },
+      });
       const updatedData = await response.json();
-      setProjects(updatedData);
+      // setProjects(updatedData);
+      if (Array.isArray(updatedData)) {
+        setProjects(updatedData);
+      } else {
+        console.error("Invalid projects data:", updatedData);
+        // Handle the case where the response is not an array
+      }
     } catch (error) {
       console.error("Error fetching updated projects ", error);
     }
@@ -55,7 +67,13 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${URL}projects/${project.id}`, { method: "DELETE" });
+      const response = await fetch(`${URL}projects/${project.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
+        },
+      });
 
       if (response.ok) {
         console.log("Project Deleted");

@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { CloseIcon } from "../icons/icons";
+import AuthContext from "../context/AuthContext";
 
 const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
+  let { authTokens } = useContext(AuthContext);
   const [projectFormData, setProjectFormData] = useState({ title: "" });
 
   const URL = "http://127.0.0.1:8000/api/";
@@ -30,6 +32,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`,
         },
         body: JSON.stringify(projectFormData),
       });
