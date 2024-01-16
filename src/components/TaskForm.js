@@ -56,6 +56,7 @@ const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId, setPr
           "Content-Type": "application/json",
           Authorization: "Bearer " + String(authTokens.access),
         },
+        body: JSON.stringify(formData.task),
       });
 
       // update state after successful post

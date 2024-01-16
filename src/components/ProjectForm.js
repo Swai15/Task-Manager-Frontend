@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { CloseIcon } from "../icons/icons";
 import AuthContext from "../context/AuthContext";
+import updateProjectList from "../utils/UpdateProjectList";
 
 const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
   let { authTokens } = useContext(AuthContext);
@@ -9,15 +10,15 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
   const URL = "http://127.0.0.1:8000/api/";
 
   // fetch updated project list
-  const updateProjectList = async () => {
-    try {
-      const response = await fetch(URL + "projects/");
-      const updatedData = await response.json();
-      setProjects(updatedData);
-    } catch (error) {
-      console.error("Error fetching updated projects ", error);
-    }
-  };
+  // const updateProjectList = async () => {
+  //   try {
+  //     const response = await fetch(URL + "projects/");
+  //     const updatedData = await response.json();
+  //     setProjects(updatedData);
+  //   } catch (error) {
+  //     console.error("Error fetching updated projects ", error);
+  //   }
+  // };
 
   // Submit Project
   const handleSubmitProject = async (e) => {
@@ -39,7 +40,8 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
 
       if (response.ok) {
         console.log("project submitted");
-        updateProjectList();
+        // updateProjectList();
+        updateProjectList(setProjects, authTokens);
         onCloseProjectClick();
         setProjectFormData({
           title: "",

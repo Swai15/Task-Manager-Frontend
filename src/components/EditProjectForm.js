@@ -20,6 +20,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects, project }) => {
           "Content-Type": "application/json",
           Authorization: "Bearer " + String(authTokens.access),
         },
+        body: JSON.stringify(projectFormData),
       });
 
       if (response.ok) {

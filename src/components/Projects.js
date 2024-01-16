@@ -78,6 +78,7 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
       if (response.ok) {
         console.log("Project Deleted");
         updateProjectList();
+        // updateProjectList(setProjects, authTokens);
         setDeleteProjectModal(false);
       } else {
         console.log("Failed to delete Task");
