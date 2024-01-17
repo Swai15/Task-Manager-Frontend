@@ -4,6 +4,11 @@ import { AddTaskIcon, ArrowLeftIcon } from "../icons/icons";
 import TaskForm from "./TaskForm";
 
 const TaskList = ({ todayTasks, tomorrowTasks, futureTasks, overdueTasks, setProjects, projects, onCloseTaskClick, setSelectedProject, activeProjectId, handleBackToProjects, handleAddTaskClick, taskModal, handleCloseTaskClick }) => {
+  const getProjectTitle = () => {
+    const project = projects.find((project) => project.id === activeProjectId);
+    return project ? project.title : "";
+  };
+
   return (
     <div className="selected-project-tasks">
       <div className="back-button">
@@ -11,7 +16,7 @@ const TaskList = ({ todayTasks, tomorrowTasks, futureTasks, overdueTasks, setPro
       </div>
       {/* Work on project icons */}
       <div className="task-header">
-        <h3 className="task-title-header">📂 Selected Project Title</h3>
+        <h3 className="task-title-header">📂 {getProjectTitle()}</h3>
       </div>
       {/* Add task */}
       <div className="task-add">
