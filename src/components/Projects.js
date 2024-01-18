@@ -99,7 +99,9 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
         <div className="project-card-contents">
           <p className="project-card-icon">📂</p>
           <h4>{project.title}</h4>
-          <p>{project.tasks.length} Tasks</p>
+          <p>
+            {project.tasks.length} {project.tasks.length != 1 ? "Tasks" : "Task"}
+          </p>
 
           {/* Progress bar */}
           <div className="progress" style={{ height: "4px", marginBottom: "10px" }}>
@@ -126,7 +128,8 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
               <div className="delete-project-modal-overlay" onClick={(e) => e.stopPropagation()}>
                 <div className="delete-project-modal">
                   <p>
-                    Deleting this project will clear <strong>{totalTasks} totalTasks</strong>
+                    Deleting this project will clear
+                    {project.tasks.length != 1 ? <strong> {totalTasks} tasks</strong> : <strong> {totalTasks} task</strong>}
                   </p>
                   <p>Are you sure you want to proceed?</p>
                   <div className="delete-project-modal-icons">
