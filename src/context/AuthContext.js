@@ -60,25 +60,32 @@ export const AuthProvider = ({ children }) => {
     e.preventDefault();
 
     setLoginErrors(null);
+    try {
+      let response = await fetch("http://127.0.0.1:8000/api/token/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username: inputUsername, password: inputPassword }),
+      });
+      const data = await response.json();
+      // First check
+      console.log("data: ", data);
 
-    let response = await fetch("http://127.0.0.1:8000/api/token/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username: inputUsername, password: inputPassword }),
-    });
-    const data = await response.json();
-    console.log("data: ", data);
-
-    if (response.status == 200) {
-      setAuthTokens(data);
-      setUser(jwtDecode(data.access));
-      localStorage.setItem("authTokens", JSON.stringify(data));
-      history("/");
-    } else {
-      setLoginErrors(data);
-      console.log("Login failed");
+      if (response.status == 200 && data) {
+        setAuthTokens(data);
+        setUser(jwtDecode(data.access));
+        localStorage.setItem("authTokens", JSON.stringify(data));
+        // Second check
+        // console.log("Access: ", String(authTokens.access));
+        history("/");
+      } else {
+        setLoginErrors(data);
+        console.log("Login failed");
+      }
+    } catch (error) {
+      console.error("Error during login ", error);
+      throw new Error("Error during login");
     }
   };
 

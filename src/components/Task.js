@@ -1,11 +1,11 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { DeleteIcon, EditIcon, InfoCircle } from "../icons/icons";
 import EditTaskForm from "./EditTaskForm";
 import updateProjectList from "../utils/UpdateProjectList";
 import AuthContext from "../context/AuthContext";
 
 const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId }) => {
-  const { authTokens } = createContext(AuthContext);
+  const { authTokens } = useContext(AuthContext);
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [completed, setCompleted] = useState(task.completed);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -51,18 +51,20 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
   const handleEditClick = async (e) => {
     console.log(task.completed);
     console.log("New task: ", newTask.completed);
+    console.log(authTokens.access);
 
     const updatedTask = { ...task, completed: !completed };
-    handleUpdatedTask(updatedTask);
+    HandleCheckTask(updatedTask);
   };
 
   // update checked status in db
-  const handleUpdatedTask = async (updatedTask) => {
+  const HandleCheckTask = async (updatedTask) => {
     try {
       const response = await fetch(`${URL}tasks/${updatedTask.id}/`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
         },
         body: JSON.stringify(updatedTask),
       });
@@ -110,7 +112,13 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
   // update task list after change
   const updateList = async () => {
     try {
-      const updatedList = await fetch(`${URL}projects/${activeProjectId}/`);
+      const updatedList = await fetch(`${URL}projects/${activeProjectId}/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authTokens.access}`,
+        },
+      });
       const updatedListData = await updatedList.json();
       setSelectedProject(updatedListData);
       console.log(updatedListData);

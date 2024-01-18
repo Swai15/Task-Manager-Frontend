@@ -21,13 +21,18 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
       title: "",
     },
   });
-
   // fetch projects for task field options
   const URL = "http://127.0.0.1:8000/api/";
 
   const fetchProjects = async () => {
     try {
-      const response = await fetch(URL + "projects/");
+      const response = await fetch(URL + "projects/", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
+        },
+      });
       const data = await response.json();
       setProjectsOptions(data);
     } catch (error) {
@@ -49,6 +54,7 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
         },
         body: JSON.stringify(formData.task),
       });
@@ -57,7 +63,13 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
       if (response.ok) {
         console.log(`Edit task successfully`);
 
-        const updatedList = await fetch(`${URL}projects/${activeProjectId}`);
+        const updatedList = await fetch(`${URL}projects/${activeProjectId}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + String(authTokens.access),
+          },
+        });
         const updatedListData = await updatedList.json();
         setSelectedProject(updatedListData);
         updateProjectList(setProjects, authTokens);

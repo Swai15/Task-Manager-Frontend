@@ -29,7 +29,7 @@ const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId, setPr
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + String(authTokens.access),
+          Authorization: `Bearer ${authTokens.access}`,
         },
       });
       const data = await response.json();
