@@ -12,7 +12,7 @@ const AllPages = () => {
         <Route path="/" exact element={<HomePage />} />
       </Route>
       <Route path="/login" element={<LoginPage />}></Route>
-      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/register" element={<RegisterPage />}></Route>
     </Routes>
   );
 };

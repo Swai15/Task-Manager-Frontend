@@ -18,7 +18,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects, project }) => {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization: "Bearer " + String(authTokens.access),
+          Authorization: "Bearer " + authTokens.access,
         },
         body: JSON.stringify(projectFormData),
       });
