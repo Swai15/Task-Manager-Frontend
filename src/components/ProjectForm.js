@@ -3,9 +3,11 @@ import { CloseIcon } from "../icons/icons";
 import AuthContext from "../context/AuthContext";
 import updateProjectList from "../utils/UpdateProjectList";
 
+import { DefaultListIcon, HomeIcon, JobIcon, HealthIcon, SavingsIcon, SocialIcon } from "../icons/projectsIcons";
+
 const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
   let { authTokens } = useContext(AuthContext);
-  const [projectFormData, setProjectFormData] = useState({ title: "" });
+  const [projectFormData, setProjectFormData] = useState({ title: "", icon: "default" });
 
   const URL = "http://127.0.0.1:8000/api/";
 
@@ -45,6 +47,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
         onCloseProjectClick();
         setProjectFormData({
           title: "",
+          icon: "default",
         });
       } else {
         console.log("Failed to submit project");
@@ -54,12 +57,39 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
     }
   };
 
+  // Icons Map
+  const iconMap = {
+    default: <DefaultListIcon />,
+    home: <HomeIcon />,
+    work: <JobIcon />,
+    health: <HealthIcon />,
+    savings: <SavingsIcon />,
+    social: <SocialIcon />,
+  };
+
+  const getIcon = (icon) => {
+    return iconMap[icon] || iconMap["default"];
+  };
+
   return (
     <div className="project-modal-overlay">
       <div className="project-modal">
         <form onSubmit={handleSubmitProject}>
           <div className="project-close">
             <CloseIcon onClick={onCloseProjectClick} />
+          </div>
+
+          {/* icon selection */}
+          <div className="mb-3">
+            <label className="form-label">
+              <div className="d-flex justify-content-between">
+                {Object.keys(iconMap).map((key) => (
+                  <div key={key} className="icon-option" onClick={() => setProjectFormData({ ...projectFormData, icon: key })}>
+                    <DefaultListIcon />
+                  </div>
+                ))}
+              </div>
+            </label>
           </div>
 
           {/* title */}
