@@ -8,6 +8,7 @@ import { DefaultListIcon, HomeIcon, JobIcon, HealthIcon, SavingsIcon, SocialIcon
 const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
   let { authTokens } = useContext(AuthContext);
   const [projectFormData, setProjectFormData] = useState({ title: "", icon: "default" });
+  const [selectedIcon, setSelectedIcon] = useState("default");
 
   const URL = "http://127.0.0.1:8000/api/";
 
@@ -67,8 +68,14 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
     social: <SocialIcon />,
   };
 
+  const iconKeys = ["default", "home", "work", "health", "savings", "social"];
+
   const getIcon = (icon) => {
     return iconMap[icon] || iconMap["default"];
+  };
+
+  const handleIconClick = (icon) => {
+    setSelectedIcon(icon);
   };
 
   return (
@@ -81,15 +88,14 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
 
           {/* icon selection */}
           <div className="mb-3">
-            <label className="form-label">
-              <div className="d-flex justify-content-between">
-                {Object.keys(iconMap).map((key) => (
-                  <div key={key} className="icon-option" onClick={() => setProjectFormData({ ...projectFormData, icon: key })}>
-                    <DefaultListIcon />
-                  </div>
-                ))}
-              </div>
-            </label>
+            <label className="form-label"></label>
+            <div className="d-flex justify-content-between">
+              {iconKeys.map((icon) => (
+                <div key={icon} className={`project-icon ${selectedIcon === icon ? "selected" : ""}`} onClick={() => handleIconClick(icon)}>
+                  {getIcon(icon)}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* title */}

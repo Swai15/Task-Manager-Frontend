@@ -254,7 +254,7 @@ h4 {
 }
 
 .add-task-icon {
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 .add-task-icon:hover {
@@ -264,7 +264,7 @@ h4 {
 
 /* Progress bar */
 .progress {
-  /* margin-top: 142px; */
+  margin-top: 30px;
 }
 
 .project-card-modify-icons {
@@ -286,4 +286,25 @@ h4 {
 
 .task-row-style:hover {
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+/* Project Icons */
+/* .project-svg {
+  font-size: 30px;
+} */
+
+.project-icon {
+  cursor: pointer;
+  border: 2px solid rgba(0, 0, 0, 0.418);
+  padding: 2px 3px 2px 3px;
+  border-radius: 5px;
+  transition: 0.3s ease;
+}
+
+.project-icon:hover {
+  border: 2px solid rgb(0, 0, 0);
+}
+
+.project-icon.selected {
+  border: 2px solid rgb(75, 190, 46);
 }
