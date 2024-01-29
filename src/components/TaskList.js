@@ -2,11 +2,26 @@ import React from "react";
 import Task from "./Task";
 import { AddTaskIcon, ArrowLeftIcon } from "../icons/icons";
 import TaskForm from "./TaskForm";
+import { DefaultListIcon, HealthIcon, HomeIcon, JobIcon, SavingsIcon, SocialIcon } from "../icons/projectsIcons";
 
-const TaskList = ({ todayTasks, tomorrowTasks, futureTasks, overdueTasks, setProjects, projects, onCloseTaskClick, setSelectedProject, activeProjectId, handleBackToProjects, handleAddTaskClick, taskModal, handleCloseTaskClick }) => {
+const TaskList = ({ todayTasks, tomorrowTasks, futureTasks, overdueTasks, setProjects, projects, onCloseTaskClick, selectedProject, setSelectedProject, activeProjectId, handleBackToProjects, handleAddTaskClick, taskModal, handleCloseTaskClick }) => {
   const getProjectTitle = () => {
     const project = projects.find((project) => project.id === activeProjectId);
     return project ? project.title : "";
+  };
+
+  // Icons Map
+  const iconMap = {
+    default: <DefaultListIcon />,
+    home: <HomeIcon />,
+    work: <JobIcon />,
+    health: <HealthIcon />,
+    savings: <SavingsIcon />,
+    social: <SocialIcon />,
+  };
+
+  const displayIcon = () => {
+    return iconMap[selectedProject.icon];
   };
 
   return (
@@ -16,7 +31,9 @@ const TaskList = ({ todayTasks, tomorrowTasks, futureTasks, overdueTasks, setPro
       </div>
       {/* Work on project icons */}
       <div className="task-header">
-        <h3 className="task-title-header">📂 {getProjectTitle()}</h3>
+        <h3 className="task-title-header">
+          {displayIcon()} {getProjectTitle()}
+        </h3>
       </div>
       {/* Add task */}
       <div className="task-add">

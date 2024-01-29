@@ -29,9 +29,6 @@ const ProjectForm = ({ onCloseProjectClick, setProjects, project }) => {
         console.log("Project updated successfully");
         updateProjectList(setProjects, authTokens);
         onCloseProjectClick();
-        setProjectFormData({
-          title: "",
-        });
       } else {
         console.log("Failed to update project");
       }

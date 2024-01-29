@@ -12,17 +12,6 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
 
   const URL = "http://127.0.0.1:8000/api/";
 
-  // fetch updated project list
-  // const updateProjectList = async () => {
-  //   try {
-  //     const response = await fetch(URL + "projects/");
-  //     const updatedData = await response.json();
-  //     setProjects(updatedData);
-  //   } catch (error) {
-  //     console.error("Error fetching updated projects ", error);
-  //   }
-  // };
-
   // Submit Project
   const handleSubmitProject = async (e) => {
     e.preventDefault();

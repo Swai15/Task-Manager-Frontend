@@ -218,12 +218,14 @@ h4 {
   margin: 15px;
   box-shadow: 0 8px 16px rgba(0, 5, 5, 0.2);
   border: 1px solid rgba(0, 0, 0, 0.178);
-  transition: box-shadow 0.3s ease;
+  transition: 0.3s ease;
   outline: none;
 }
 
 .project-card:hover {
   box-shadow: 0 8px 16px rgba(0, 5, 5, 0.37);
+  /* transform: translateY(-3px);
+  transform: translate(2px, -2px); */
 }
 
 .task-header {

@@ -3,6 +3,7 @@ import { Card, Badge } from "react-bootstrap"; // Import Card and Badge from rea
 import { DeleteIcon, EditIcon } from "../icons/icons";
 import EditProjectForm from "./EditProjectForm";
 import AuthContext from "../context/AuthContext";
+import { DefaultListIcon, HealthIcon, HomeIcon, JobIcon, SavingsIcon, SocialIcon } from "../icons/projectsIcons";
 
 const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
   let { authTokens } = useContext(AuthContext);
@@ -93,11 +94,27 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
   const totalTasks = project.tasks.length;
   const completionPercentage = (completedTasks / totalTasks) * 100;
 
+  // Icons Map
+  const iconMap = {
+    default: <DefaultListIcon />,
+    home: <HomeIcon />,
+    work: <JobIcon />,
+    health: <HealthIcon />,
+    savings: <SavingsIcon />,
+    social: <SocialIcon />,
+  };
+
+  const displayIcon = () => {
+    return iconMap[project.icon];
+  };
+
+  const iconKeys = ["default", "home", "work", "health", "savings", "social"];
+
   return (
     <div className="project-card-container" key={project.id} onClick={() => onClick(project)}>
       <div className="project-card cursor">
         <div className="project-card-contents">
-          <p className="project-card-icon">{project.icon}</p>
+          <p className="project-card-icon">{displayIcon()}</p>
           <h4>{project.title}</h4>
           <p>
             {project.tasks.length} {project.tasks.length != 1 ? "Tasks" : "Task"}

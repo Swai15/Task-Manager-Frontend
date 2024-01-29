@@ -138,6 +138,7 @@ function HomePage() {
           setProjects={setProjects}
           projects={projects}
           onCloseTaskClick={handleCloseTaskClick}
+          selectedProject={selectedProject}
           setSelectedProject={setSelectedProject}
           activeProjectId={activeProjectId}
           handleBackToProjects={handleBackToProjects}

@@ -140,7 +140,8 @@ export const AuthProvider = ({ children }) => {
       updateToken();
     }
 
-    let refreshTime = 1000 * 600 * 4.9;
+    let refreshTime = 1000 * 600 * 24;
+    // let refreshTime = 4000;
     let interval = setInterval(() => {
       if (authTokens) {
         updateToken();
