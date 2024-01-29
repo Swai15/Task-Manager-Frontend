@@ -76,6 +76,10 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
 
   const handleIconClick = (icon) => {
     setSelectedIcon(icon);
+    setProjectFormData((prevFormData) => ({
+      ...prevFormData,
+      icon: icon,
+    }));
   };
 
   return (
@@ -101,7 +105,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
           {/* title */}
           <div className="mb-3">
             <label className="form-label"> Title:</label>
-            <input type="text" className="form-control" name="title" value={projectFormData.title} onChange={(e) => setProjectFormData({ title: e.target.value })} required />
+            <input type="text" className="form-control" name="title" value={projectFormData.title} onChange={(e) => setProjectFormData((prevFormData) => ({ ...prevFormData, title: e.target.value }))} required />
           </div>
 
           {/* submit  */}
