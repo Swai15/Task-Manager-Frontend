@@ -2,10 +2,12 @@ import React, { useState, useEffect, useContext } from "react";
 import { CloseIcon } from "../icons/icons";
 import updateProjectList from "../utils/UpdateProjectList";
 import AuthContext from "../context/AuthContext";
+import { DefaultListIcon, HealthIcon, HomeIcon, JobIcon, SavingsIcon, SocialIcon } from "../icons/projectsIcons";
 
 const ProjectForm = ({ onCloseProjectClick, setProjects, project }) => {
   const { authTokens } = useContext(AuthContext);
-  const [projectFormData, setProjectFormData] = useState({ title: project.title, tasks: [{ ...project.tasks }] });
+  const [projectFormData, setProjectFormData] = useState({ title: project.title, icon: project.icon, tasks: [{ ...project.tasks }] });
+  const [selectedIcon, setSelectedIcon] = useState(project.icon);
 
   const URL = "http://127.0.0.1:8000/api/";
   // Submit Project
@@ -38,12 +40,48 @@ const ProjectForm = ({ onCloseProjectClick, setProjects, project }) => {
     }
   };
 
+  // Icons Map
+  const iconMap = {
+    default: <DefaultListIcon />,
+    home: <HomeIcon />,
+    work: <JobIcon />,
+    health: <HealthIcon />,
+    savings: <SavingsIcon />,
+    social: <SocialIcon />,
+  };
+
+  const iconKeys = ["default", "home", "work", "health", "savings", "social"];
+
+  const getIcon = (icon) => {
+    return iconMap[icon] || iconMap["default"];
+  };
+
+  const handleIconClick = (icon) => {
+    setSelectedIcon(icon);
+    setProjectFormData((prevFormData) => ({
+      ...prevFormData,
+      icon: icon,
+    }));
+  };
+
   return (
     <div className="project-modal-overlay" onClick={(e) => e.stopPropagation()}>
       <div className="project-modal">
         <form onSubmit={handleSubmitProject}>
           <div className="project-close">
             <CloseIcon onClick={onCloseProjectClick} />
+          </div>
+
+          {/* icon selection */}
+          <div className="mb-3">
+            <label className="form-label"></label>
+            <div className="d-flex justify-content-between">
+              {iconKeys.map((icon) => (
+                <div key={icon} className={`project-icon ${selectedIcon === icon ? "selected" : ""}`} onClick={() => handleIconClick(icon)}>
+                  {getIcon(icon)}
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* title */}
