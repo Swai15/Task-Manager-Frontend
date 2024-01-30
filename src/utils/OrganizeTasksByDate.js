@@ -11,7 +11,6 @@ const OrganizeTasksByDate = (tasks) => {
 
   tasks.forEach((task) => {
     const taskDueDate = new Date(task.due_date);
-    // const timeDifference = taskDueDate.getTime() - currentDate.getTime();
 
     // solves timezone issue
     const timeDifference = differenceInMilliseconds(taskDueDate, startOfCurrentDay);
