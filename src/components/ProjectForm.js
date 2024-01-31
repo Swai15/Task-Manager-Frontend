@@ -75,8 +75,11 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
     <div className="project-modal-overlay">
       <div className="project-modal">
         <form onSubmit={handleSubmitProject}>
-          <div className="project-close">
-            <CloseIcon onClick={onCloseProjectClick} />
+          <div className="add-project-header modal-header">
+            <h3>Add Project</h3>
+            <div className="project-close">
+              <CloseIcon onClick={onCloseProjectClick} />
+            </div>
           </div>
 
           {/* icon selection */}

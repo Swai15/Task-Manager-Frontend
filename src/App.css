@@ -1,3 +1,7 @@
+:root {
+  --header-colors: linear-gradient(to right, #3d5a80, #e0fbfc);
+}
+
 * {
   margin: 1px;
 }
@@ -309,4 +313,49 @@ h4 {
 
 .project-icon.selected {
   border: 2px solid rgb(75, 190, 46);
+}
+
+
+
+/* Headers */
+
+.header {
+  height: 60px;
+  background: var(--header-colors);
+}
+
+.header h3 {
+  color: white;
+}
+
+.header-logo-div {
+  display: flex;
+  gap: 10px;
+}
+
+.add-project-header {
+  /* background: var(--header-colors); */
+  height: 40px;
+  /* margin: 0;
+  margin-left: -19.5px;
+  margin-right: -19.5px; */
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+/* .modal-header {
+  margin-top: -5px;
+  border: 1px solid black;
+  border-bottom: 2px solid black;
+} */
+
+.project-close {
+  margin-top: -30px;
+  margin-left: 20px;
+  height: 30px;
+}
+
+.project-modal {
+  /* background-color: red; */
 }
