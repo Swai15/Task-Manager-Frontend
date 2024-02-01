@@ -75,7 +75,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
     <div className="project-modal-overlay">
       <div className="project-modal">
         <form onSubmit={handleSubmitProject}>
-          <div className="add-project-header modal-header">
+          <div className="mb-3 add-project-header modal-header">
             <h3>Add Project</h3>
             <div className="project-close">
               <CloseIcon onClick={onCloseProjectClick} />
@@ -83,8 +83,8 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
           </div>
 
           {/* icon selection */}
-          <div className="mb-3">
-            <label className="form-label"></label>
+          <div className="mb-3 project-icon-div">
+            <label className="form-label">Icon</label>
             <div className="d-flex justify-content-between">
               {iconKeys.map((icon) => (
                 <div key={icon} className={`project-icon ${selectedIcon === icon ? "selected" : ""}`} onClick={() => handleIconClick(icon)}>
@@ -96,12 +96,15 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
 
           {/* title */}
           <div className="mb-3">
-            <label className="form-label"> Title:</label>
+            <label className="form-label">
+              {" "}
+              Title <span className="text-danger">*</span>{" "}
+            </label>
             <input type="text" className="form-control" name="title" value={projectFormData.title} onChange={(e) => setProjectFormData((prevFormData) => ({ ...prevFormData, title: e.target.value }))} required />
           </div>
 
-          {/* submit  */}
-          <div>
+          {/* submit/cancel  */}
+          <div className="project-modal-buttons">
             <button type="submit" className="btn btn-primary mr-" onSubmit={handleSubmitProject}>
               Submit
             </button>

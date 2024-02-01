@@ -1,5 +1,6 @@
 :root {
-  --header-colors: linear-gradient(to right, #3d5a80, #e0fbfc);
+  --header-background-colors: linear-gradient(to right, #3d5a80, #e0fbfc);
+  --heading-color: #3d5a80
 }
 
 * {
@@ -157,6 +158,15 @@ h4 {
   height: auto;
   z-index: 100;
 }
+
+/* .delete-modal, .description-modal, .project-modal, .task-modal, .delete-project-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: auto;
+  height: auto;
+  z-index: 100;
+} */
 
 .delete-project-modal {
   display: flex;
@@ -317,11 +327,11 @@ h4 {
 
 
 
-/* Headers */
+/* HEADERS */
 
 .header {
   height: 60px;
-  background: var(--header-colors);
+  background: var(--header-background-colors);
 }
 
 .header h3 {
@@ -333,16 +343,6 @@ h4 {
   gap: 10px;
 }
 
-.add-project-header {
-  /* background: var(--header-colors); */
-  height: 40px;
-  /* margin: 0;
-  margin-left: -19.5px;
-  margin-right: -19.5px; */
-  display: flex;
-  justify-content: space-between;
-  padding: 5px;
-}
 
 /* .modal-header {
   margin-top: -5px;
@@ -350,12 +350,25 @@ h4 {
   border-bottom: 2px solid black;
 } */
 
-.project-close {
+.add-project-header .project-close {
   margin-top: -30px;
   margin-left: 20px;
   height: 30px;
 }
 
-.project-modal {
-  /* background-color: red; */
+
+.add-project-header h3 {
+  color: var(--heading-color);
+}
+
+.project-modal-buttons {
+  /* border: 1px solid black; */
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.project-icon-div {
+  /* border: 1px solid black; */
+
 }
