@@ -110,14 +110,13 @@ function HomePage() {
   // Return
   <hr />;
   return (
-    <div>
+    <div className="HomeProjects-container">
       {/* Project List */}
       {projectsVisible ? (
         // <ProjectList project={project} setProjects={setProjects} hand />
 
         <div className="project-container-parent">
           <Header />
-          <hr />
           <ProjectList projects={projects} setProjects={setProjects} handleActiveProject={handleActiveProject} />
 
           {/* Add project modal */}
