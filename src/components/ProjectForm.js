@@ -100,7 +100,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
               {" "}
               Title <span className="text-danger">*</span>{" "}
             </label>
-            <input type="text" className="form-control" name="title" value={projectFormData.title} onChange={(e) => setProjectFormData((prevFormData) => ({ ...prevFormData, title: e.target.value }))} required />
+            <input type="text" maxLength={20} className="form-control" name="title" value={projectFormData.title} onChange={(e) => setProjectFormData((prevFormData) => ({ ...prevFormData, title: e.target.value }))} required />
           </div>
 
           {/* submit/cancel  */}

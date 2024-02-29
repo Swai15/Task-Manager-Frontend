@@ -19,9 +19,9 @@ const LoginPage = () => {
   };
 
   return (
-    <div>
+    <div className="login-container-parent">
       <Header />
-      <div className=" login-container ">
+      <div className="login-container">
         <div className="card login-card p-4">
           <form onSubmit={handleLoginSubmit}>
             {/* username */}

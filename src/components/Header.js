@@ -15,7 +15,7 @@ const Header = () => {
 
       <div className="header-username">{user ? <p>Hello {user.username}</p> : <p>Guest</p>}</div>
 
-      <div className="header-login">{user ? <p onClick={logoutUser}>Logout</p> : <Link to="login">Login</Link>}</div>
+      <div className="header-login">{user ? <p onClick={logoutUser}>Logout</p> : ""}</div>
     </div>
   );
 };

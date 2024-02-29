@@ -115,7 +115,7 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
       <div className="project-card cursor">
         <div className="project-card-contents">
           <p className="project-card-icon">{displayIcon()}</p>
-          <h4>{project.title}</h4>
+          <h4 className="project-card-title">{project.title}</h4>
           <p>
             {project.tasks.length} {project.tasks.length != 1 ? "Tasks" : "Task"}
           </p>

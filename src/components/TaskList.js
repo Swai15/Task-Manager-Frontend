@@ -24,6 +24,8 @@ const TaskList = ({ todayTasks, tomorrowTasks, futureTasks, overdueTasks, setPro
     return iconMap[selectedProject.icon];
   };
 
+  const noTasks = todayTasks.length === 0 && tomorrowTasks.length === 0 && futureTasks.length === 0 && overdueTasks.length === 0;
+
   return (
     <div className="selected-project-tasks">
       {/* Work on project icons */}
@@ -39,6 +41,17 @@ const TaskList = ({ todayTasks, tomorrowTasks, futureTasks, overdueTasks, setPro
         </div>
 
         {/* Add task */}
+      </div>
+
+      <div>
+        {noTasks && (
+          <div className="tasks-empty-container">
+            <div className="tasks-empty">
+              <img src="/Images/sleepingCat.gif" alt="" />
+              <p>You have no tasks in this project</p>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Add task modal */}

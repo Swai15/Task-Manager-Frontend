@@ -20,7 +20,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
 
   // description click
   const handleDescriptionClick = () => {
-    console.log("Description opened");
+    // console.log("Description opened");
     setIsModalOpen(true);
     const project = projects.find((project) => project.id === task.project);
     if (project) {
@@ -31,7 +31,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
 
   // Description Modal
   const handleCloseModal = () => {
-    console.log("Description closed");
+    // console.log("Description closed");
     setDescriptionModal(false);
     setIsModalOpen(false);
   };
@@ -49,10 +49,8 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
 
   // Edit Completed checkbox
   const handleEditClick = async (e) => {
-    console.log(task.completed);
-    console.log("New task: ", newTask.completed);
-    console.log(authTokens.access);
-
+    // console.log(task.completed);
+    // console.log("New task: ", newTask.completed);
     const updatedTask = { ...task, completed: !completed };
     HandleCheckTask(updatedTask);
   };
@@ -69,14 +67,15 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
         body: JSON.stringify(updatedTask),
       });
       const data = await response.json();
-      console.log("Task updated: ", data);
+      // console.log("Task updated: ", data);
 
       if (response.ok) {
-        console.log("Checkbox updated successfully");
+        // console.log("Checkbox updated successfully");
         setCompleted(updatedTask.completed);
+        updateProjectList(setProjects, authTokens);
         setNewTask(data);
       } else {
-        console.log("failed to update checkbox");
+        // console.log("failed to update checkbox");
       }
     } catch (error) {
       console.error("Error updating task: ", error);
@@ -98,7 +97,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
       const response = await fetch(`${URL}tasks/${task.id}`, { method: "DELETE" });
 
       if (response.ok) {
-        console.log("Task deleted successfully");
+        // console.log("Task deleted successfully");
         updateList();
         updateProjectList(setProjects, authTokens);
       } else {
@@ -121,7 +120,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
       });
       const updatedListData = await updatedList.json();
       setSelectedProject(updatedListData);
-      console.log(updatedListData);
+      // console.log(updatedListData);
     } catch (error) {
       console.error("Failed to update task list: ", error);
     }

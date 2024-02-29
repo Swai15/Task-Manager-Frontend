@@ -57,7 +57,7 @@ export const SocialIcon = () => (
 // );
 
 export const HeaderIcon = () => (
-  <svg style={commonIconStyle} fill="#000000" className="header-icon" height="187px" width="187px" version="1.1" id="Capa_1" viewBox="-13.2 -13.2 246.40 246.40" stroke="#000000">
+  <svg style={commonIconStyle} fill="var(--color-title)" className="header-icon" height="187px" width="187px" version="1.1" id="Capa_1" viewBox="-13.2 -13.2 246.40 246.40" stroke="#000000">
     <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
     <g id="SVGRepo_tracerCarrier" strokeLinecap="round" strokeLinejoin="round"></g>
     <g id="SVGRepo_iconCarrier">
