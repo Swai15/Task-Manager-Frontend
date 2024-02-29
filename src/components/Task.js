@@ -148,12 +148,13 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
 
   return (
     // <div className="task-row task-row-style" key={task.id}>
-    <div className={`task-row task-row-style ${isModalOpen ? "modal-open" : "modal-close"}`} key={task.id}>
+    <div className={`taskDiv task-row task-row-style ${isModalOpen ? "modal-open" : "modal-close"}`} key={task.id}>
       <input type="checkbox" checked={completed} onChange={handleEditClick} className={setPriorityClass()} />
 
       <p className={newTask.completed ? "task-title completed" : "task-title "}>{task.title}</p>
-      <p className="task-date">{formattedDate} </p>
+
       <div className="task-icons">
+        <p className="task-date">{formattedDate} </p>
         <InfoCircle onClick={handleDescriptionClick} />
         <EditIcon onClick={handleEditTaskCLick} />
         <DeleteIcon onClick={handleDeleteClick} />

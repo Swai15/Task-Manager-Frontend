@@ -169,7 +169,7 @@ const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId, setPr
           </div>
 
           {/* submit  */}
-          <div>
+          <div className="modal-buttons">
             <button type="submit" className="btn btn-primary mr-" onSubmit={handleSubmitTask}>
               Submit
             </button>

@@ -13,9 +13,9 @@ const Header = () => {
         <h3>Task Manager</h3>
       </div>
 
-      {user ? <p onClick={logoutUser}>Logout</p> : <Link to="login">Login</Link>}
+      <div className="header-username">{user ? <p>Hello {user.username}</p> : <p>Guest</p>}</div>
 
-      {user ? <p>Hello {user.username}</p> : <p>Guest</p>}
+      <div className="header-login">{user ? <p onClick={logoutUser}>Logout</p> : <Link to="login">Login</Link>}</div>
     </div>
   );
 };

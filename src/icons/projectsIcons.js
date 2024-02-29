@@ -6,31 +6,31 @@ const commonIconStyle = {
 };
 
 export const DefaultListIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" style={commonIconStyle} fill="currentColor" className="project-svg bi bi-list-task" viewBox="0 0 16 16">
+  <svg xmlns="http://www.w3.org/2000/svg" style={commonIconStyle} fill="var(--color-title)" className="project-svg bi bi-list-task" viewBox="0 0 16 16">
     <path fillRule="evenodd" d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5zM3 3H2v1h1z" />
     <path d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1z" />
     <path fillRule="evenodd" d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5zM2 7h1v1H2zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5zm1 .5H2v1h1z" />
   </svg>
 );
 export const HomeIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" style={commonIconStyle} fill="currentColor" className="project-svg bi bi-house" viewBox="0 0 16 16">
+  <svg xmlns="http://www.w3.org/2000/svg" style={commonIconStyle} fill="var(--color-title)" className="project-svg bi bi-house" viewBox="0 0 16 16">
     <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
   </svg>
 );
 
 export const JobIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" style={commonIconStyle} fill="currentColor" className="project-svg bi bi-briefcase" viewBox="0 0 16 16">
+  <svg xmlns="http://www.w3.org/2000/svg" style={commonIconStyle} fill="var(--color-title)" className="project-svg bi bi-briefcase" viewBox="0 0 16 16">
     <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5m1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0M1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5" />
   </svg>
 );
 export const HealthIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" style={commonIconStyle} fill="currentColor" className="project-svg bi bi-activity" viewBox="0 0 16 16">
+  <svg xmlns="http://www.w3.org/2000/svg" style={commonIconStyle} fill="var(--color-title)" className="project-svg bi bi-activity" viewBox="0 0 16 16">
     <path fillRule="evenodd" d="M6 2a.5.5 0 0 1 .47.33L10 12.036l1.53-4.208A.5.5 0 0 1 12 7.5h3.5a.5.5 0 0 1 0 1h-3.15l-1.88 5.17a.5.5 0 0 1-.94 0L6 3.964 4.47 8.171A.5.5 0 0 1 4 8.5H.5a.5.5 0 0 1 0-1h3.15l1.88-5.17A.5.5 0 0 1 6 2" />
   </svg>
 );
 
 export const SavingsIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" style={commonIconStyle} fill="currentColor" className="project-svg bi bi-piggy-bank" viewBox="0 0 16 16">
+  <svg xmlns="http://www.w3.org/2000/svg" style={commonIconStyle} fill="var(--color-title)" className="project-svg bi bi-piggy-bank" viewBox="0 0 16 16">
     <path d="M5 6.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0m1.138-1.496A6.6 6.6 0 0 1 7.964 4.5c.666 0 1.303.097 1.893.273a.5.5 0 0 0 .286-.958A7.6 7.6 0 0 0 7.964 3.5c-.734 0-1.441.103-2.102.292a.5.5 0 1 0 .276.962" />
     <path
       fillRule="evenodd"
@@ -40,7 +40,7 @@ export const SavingsIcon = () => (
 );
 
 export const SocialIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" style={commonIconStyle} fill="currentColor" className="project-svg bi bi-people" viewBox="0 0 16 16">
+  <svg xmlns="http://www.w3.org/2000/svg" style={commonIconStyle} fill="var(--color-title)" className="project-svg bi bi-people" viewBox="0 0 16 16">
     <path d="M15 14s1 0 1-1-1-4-5-4-5 3-5 4 1 1 1 1zm-7.978-1L7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276.593.69.758 1.457.76 1.72l-.008.002-.014.002zM11 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0M6.936 9.28a6 6 0 0 0-1.23-.247A7 7 0 0 0 5 9c-4 0-5 3-5 4q0 1 1 1h4.216A2.24 2.24 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904.243-.294.526-.569.846-.816M4.92 10A5.5 5.5 0 0 0 4 13H1c0-.26.164-1.03.76-1.724.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0 3 3 0 0 1-6 0m3-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4" />
   </svg>
 );

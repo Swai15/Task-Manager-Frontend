@@ -169,7 +169,7 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
           </div>
 
           {/* submit */}
-          <div>
+          <div className="modal-buttons">
             <button type="submit" className="btn btn-primary mr-" onSubmit={handleSubmitTask}>
               Update
             </button>

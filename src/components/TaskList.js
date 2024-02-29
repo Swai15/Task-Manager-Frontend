@@ -26,19 +26,19 @@ const TaskList = ({ todayTasks, tomorrowTasks, futureTasks, overdueTasks, setPro
 
   return (
     <div className="selected-project-tasks">
-      <div className="back-button">
-        <ArrowLeftIcon onClick={handleBackToProjects} />
-      </div>
       {/* Work on project icons */}
       <div className="task-header">
+        <div className="back-button">
+          <ArrowLeftIcon onClick={handleBackToProjects} />
+        </div>
         <h3 className="task-title-header">
-          {displayIcon()} {getProjectTitle()}
+          {displayIcon()} <span className="project-title-name">{getProjectTitle()}</span>
         </h3>
-      </div>
+        <div className="task-add">
+          <AddTaskIcon onClick={handleAddTaskClick} />
+        </div>
 
-      {/* Add task */}
-      <div className="task-add">
-        <AddTaskIcon onClick={handleAddTaskClick} />
+        {/* Add task */}
       </div>
 
       {/* Add task modal */}
@@ -88,7 +88,7 @@ const TaskList = ({ todayTasks, tomorrowTasks, futureTasks, overdueTasks, setPro
         {overdueTasks.length > 0 && (
           <>
             <h4 className="task-topic">Overdue Heading</h4>
-            <div className="row">
+            <div>
               {overdueTasks.map((task) => (
                 <div key={task.id} className="col-mb-4 mb-3">
                   <Task setProjects={setProjects} task={task} onCloseTaskClick={onCloseTaskClick} projects={projects} setSelectedProject={setSelectedProject} activeProjectId={activeProjectId} />
