@@ -8,8 +8,8 @@ password: demo123
 
 ## Preview
 
-![Project section landscape](https://imgur.com/VV5ouae)
-![Task section portrait](https://imgur.com/IUJdnPG)
+![Project section landscape](https://i.imgur.com/VV5ouae.png)
+![Task section portrait](https://i.imgur.com/IUJdnPG.png)
 
 ## Project Progress Tracking and Frontend
 
