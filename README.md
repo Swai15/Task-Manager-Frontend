@@ -2,14 +2,14 @@
 
 This is the dynamic user interface for managing tasks and projects. It provides a seamless experience for users to interact with the Task Manager API.
 
-(Check it out)[https://tasktrackfs.netlify.app/] using this demo account
+[Check it out](https://tasktrackfs.netlify.app/) using this demo account
 Username: demo
 password: demo123
 
 ## Preview
 
-(https://imgur.com/VV5ouae)
-(https://imgur.com/IUJdnPG)
+![Project section landscape](https://imgur.com/VV5ouae)
+![Task section portrait](https://imgur.com/IUJdnPG)
 
 ## Project Progress Tracking and Frontend
 
