@@ -22,6 +22,7 @@ const LoginPage = () => {
     <div className="login-container-parent">
       <Header />
       <div className="login-container">
+        <h3 className="login-title">Login</h3>
         <div className="card login-card p-4">
           <form onSubmit={handleLoginSubmit}>
             {/* username */}

@@ -22,7 +22,7 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
     },
   });
   // fetch projects for task field options
-  const URL = "http://127.0.0.1:8000/api/";
+  const URL = "https://jules.pythonanywhere.com/api/";
 
   const fetchProjects = async () => {
     try {
@@ -100,9 +100,12 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
   return (
     <div className="task-modal-overlay">
       <div className="task-modal">
-        <form onSubmit={handleSubmitTask}>
-          <div className="task-close">
-            <CloseIcon onClick={onCloseEditModal} />
+        <form className="editTask-form" onSubmit={handleSubmitTask}>
+          <div className="mb-3 add-project-header modal-header">
+            <h3>Edit Project</h3>
+            <div className="task-close">
+              <CloseIcon onClick={onCloseEditModal} />
+            </div>
           </div>
 
           {/* title */}
@@ -111,7 +114,7 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
               {" "}
               Title <span className="text-danger">*</span>
             </label>
-            <input type="text" className="form-control" name="title" value={formData.task.title} onChange={(e) => setFormData({ ...formData, task: { ...formData.task, title: e.target.value } })} />
+            <input type="text" maxLength={30} className="form-control" name="title" value={formData.task.title} onChange={(e) => setFormData({ ...formData, task: { ...formData.task, title: e.target.value } })} />
           </div>
 
           {/* description */}

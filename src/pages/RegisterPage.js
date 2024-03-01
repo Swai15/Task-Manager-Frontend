@@ -55,7 +55,7 @@ const RegisterPage = () => {
   return (
     <div className="register-container-parent">
       <div className="register-container">
-        <h3>Register</h3>
+        <h3 className="register-title">Register</h3>
         <div className="card register-card p-4">
           <form onSubmit={handleRegisterSubmit}>
             <div className="row">
@@ -135,12 +135,15 @@ const RegisterPage = () => {
 
             {/* Register buttons */}
             <div className="login-buttons">
-              <button type="submit" className="btn btn-primary">
-                Register
+              <button type="submit" style={{ minWidth: "90px", position: "relative" }} className="btn btn-primary">
+                {registrationLoading ? <img className="register-loading" src="/Images/loading.gif" alt="" /> : "Register"}
               </button>
             </div>
 
-            {registrationLoading && <div>Loading...</div>}
+            {/* {registrationLoading && <div>Loading...</div>}
+            <button className="register-loading">
+              <img src="/Images/loading.gif" alt="" />
+            </button> */}
 
             {registrationErrors && (
               <div className="alert alert-danger register-error-alert">

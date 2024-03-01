@@ -10,7 +10,8 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
   const [editProjectModal, setEditProjectModal] = useState(false);
   const [deleteProjectModal, setDeleteProjectModal] = useState(false);
 
-  const URL = "http://127.0.0.1:8000/api/";
+  const URL = "https://jules.pythonanywhere.com/api/";
+  // const URL = "http://127.0.0.1:8000/api/";
 
   // Edit Project
   const handleEditProjectClick = (e) => {
@@ -116,20 +117,21 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
         <div className="project-card-contents">
           <p className="project-card-icon">{displayIcon()}</p>
           <h4 className="project-card-title">{project.title}</h4>
-          <p>
-            {project.tasks.length} {project.tasks.length != 1 ? "Tasks" : "Task"}
-          </p>
-
-          {/* Progress bar */}
-          <div className="progress" style={{ height: "4px", marginBottom: "10px" }}>
-            <div
-              className="progress-bar"
-              role="progressbar"
-              style={{ width: `${completionPercentage}%`, borderRadius: "0", height: "100%", backgroundColor: "#007BFF" }}
-              aria-valuenow={completionPercentage}
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
+          <div className="tasks-length">
+            <p>
+              {project.tasks.length} {project.tasks.length != 1 ? "Tasks" : "Task"}
+            </p>
+            {/* Progress bar */}
+            <div className="progress" style={{ height: "4px", marginBottom: "10px" }}>
+              <div
+                className="progress-bar"
+                role="progressbar"
+                style={{ width: `${completionPercentage}%`, borderRadius: "0", height: "100%", backgroundColor: "#007BFF" }}
+                aria-valuenow={completionPercentage}
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
           </div>
 
           <div

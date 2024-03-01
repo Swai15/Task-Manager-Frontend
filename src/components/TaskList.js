@@ -29,6 +29,7 @@ const TaskList = ({ todayTasks, tomorrowTasks, futureTasks, overdueTasks, setPro
   return (
     <div className="selected-project-tasks">
       {/* Work on project icons */}
+
       <div className="task-header">
         <div className="back-button">
           <ArrowLeftIcon onClick={handleBackToProjects} />
@@ -47,7 +48,7 @@ const TaskList = ({ todayTasks, tomorrowTasks, futureTasks, overdueTasks, setPro
         {noTasks && (
           <div className="tasks-empty-container">
             <div className="tasks-empty">
-              <img src="/Images/sleepingCat.gif" alt="" />
+              <img src="/Images/sleepingCat.gif" alt="" draggable="false" onContextMenu={(e) => e.preventDefault()} />
               <p>You have no tasks in this project</p>
             </div>
           </div>
@@ -100,7 +101,7 @@ const TaskList = ({ todayTasks, tomorrowTasks, futureTasks, overdueTasks, setPro
         {/* Overdue tasks */}
         {overdueTasks.length > 0 && (
           <>
-            <h4 className="task-topic">Overdue Heading</h4>
+            <h4 className="task-topic">Overdue </h4>
             <div>
               {overdueTasks.map((task) => (
                 <div key={task.id} className="col-mb-4 mb-3">

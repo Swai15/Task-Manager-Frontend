@@ -9,7 +9,8 @@ const ProjectForm = ({ onCloseProjectClick, setProjects, project }) => {
   const [projectFormData, setProjectFormData] = useState({ title: project.title, icon: project.icon, tasks: [{ ...project.tasks }] });
   const [selectedIcon, setSelectedIcon] = useState(project.icon);
 
-  const URL = "http://127.0.0.1:8000/api/";
+  const URL = "https://jules.pythonanywhere.com/api/";
+
   // Submit Project
   const handleSubmitProject = async (e) => {
     e.preventDefault();

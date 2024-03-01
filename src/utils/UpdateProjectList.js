@@ -1,5 +1,5 @@
 const updateProjectList = async (setProjects, authTokens) => {
-  const URL = " http://127.0.0.1:8000/api/";
+  const URL = "https://jules.pythonanywhere.com/api/";
 
   try {
     // console.log(setProjects);

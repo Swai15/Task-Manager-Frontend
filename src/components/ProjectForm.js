@@ -10,13 +10,14 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
   const [projectFormData, setProjectFormData] = useState({ title: "", icon: "default" });
   const [selectedIcon, setSelectedIcon] = useState("default");
 
-  const URL = "http://127.0.0.1:8000/api/";
+  const URL = "https://jules.pythonanywhere.com/api/";
+  // const URL = "http://127.0.0.1:8000/api/";
 
   // Submit Project
   const handleSubmitProject = async (e) => {
     e.preventDefault();
 
-    const URL = "http://127.0.0.1:8000/api/";
+    // const URL = "http://jules.pythonanywhere.com/api/";
 
     try {
       console.log(JSON.stringify(projectFormData));

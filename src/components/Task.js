@@ -16,7 +16,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
 
   const [editModal, setEditModal] = useState(false);
 
-  const URL = "http://127.0.0.1:8000/api/";
+  const URL = "https://jules.pythonanywhere.com/api/";
 
   // description click
   const handleDescriptionClick = () => {
@@ -94,7 +94,13 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
 
   const handleDeleteConfirmation = async (e) => {
     try {
-      const response = await fetch(`${URL}tasks/${task.id}`, { method: "DELETE" });
+      const response = await fetch(`${URL}tasks/${task.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + String(authTokens.access),
+        },
+      });
 
       if (response.ok) {
         // console.log("Task deleted successfully");
@@ -142,7 +148,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
 
   // Format date, month and date
   const taskDueDate = new Date(task.due_date);
-  const options = { day: "numeric", month: "long" };
+  const options = { day: "numeric", month: "short" };
   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(taskDueDate);
 
   return (
@@ -195,7 +201,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
           <div className="delete-modal-overlay">
             <div className="delete-modal">
               <p>Are you sure you want to delete this task?</p>
-              <div>
+              <div className="delete-modal-btns">
                 <button type="button" className="btn btn-primary " onClick={handleDeleteConfirmation}>
                   Delete
                 </button>

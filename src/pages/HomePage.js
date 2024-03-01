@@ -21,7 +21,7 @@ function HomePage() {
   const [projectModal, setProjectModal] = useState(false);
   const [activeProjectId, setActiveProjectId] = useState(null);
 
-  const URL = "http://127.0.0.1:8000/api";
+  const URL = "https://jules.pythonanywhere.com/api/";
 
   // fetch all projects
   const fetchProjects = async () => {

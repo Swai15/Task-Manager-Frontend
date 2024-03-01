@@ -10,8 +10,8 @@ export const AuthProvider = ({ children }) => {
   let getAuthToken = localToken ? JSON.parse(localToken) : null;
   let getStoredUser = localToken ? jwtDecode(localToken) : null;
 
-  let [authTokens, setAuthTokens] = useState(() => getAuthToken);
-  let [user, setUser] = useState(() => getAuthToken);
+  let [authTokens, setAuthTokens] = useState(() => getAuthToken || null);
+  let [user, setUser] = useState(() => getAuthToken || null);
   const [loading, setLoading] = useState(true);
 
   const [registrationErrors, setRegistrationErrors] = useState(null);
@@ -19,10 +19,13 @@ export const AuthProvider = ({ children }) => {
 
   const history = useNavigate();
 
+  const URL = "https://jules.pythonanywhere.com/api/";
+  // const URL = "http://127.0.0.1:8000/api/";
+
   // Register User
   let registerUser = async (userData) => {
     try {
-      let response = await fetch("http://127.0.0.1:8000/api/users/register/", {
+      let response = await fetch(URL + "/users/register/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,14 +35,14 @@ export const AuthProvider = ({ children }) => {
 
       const data = await response.json();
       if (response.status === 201) {
-        console.log("User Registered successfully");
+        // console.log("User Registered successfully");
         // console.log("data: ", data);
         // console.log("data tokens", data.tokens);
         setAuthTokens(data.tokens);
 
-        console.log("data token access", data.tokens.access);
+        // console.log("data token access", data.tokens.access);
         let logUser = jwtDecode(data.tokens.access);
-        console.log("decoded data.tokens.access: ", logUser);
+        // console.log("decoded data.tokens.access: ", logUser);
         setUser(jwtDecode(data.tokens.access));
         localStorage.setItem("authTokens", JSON.stringify(data.tokens));
         // history("/");
@@ -50,7 +53,7 @@ export const AuthProvider = ({ children }) => {
         throw new Error("Registration Failed");
       }
     } catch (error) {
-      console.error("Error during registration ", error);
+      // console.error("Error during registration ", error);
       throw new Error("Error during registration");
     }
   };
@@ -61,7 +64,7 @@ export const AuthProvider = ({ children }) => {
 
     setLoginErrors(null);
     try {
-      let response = await fetch("http://127.0.0.1:8000/api/token/", {
+      let response = await fetch(URL + "token/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +73,7 @@ export const AuthProvider = ({ children }) => {
       });
       const data = await response.json();
       // First check
-      console.log("data: ", data);
+      // console.log("data: ", data);
 
       if (response.status == 200 && data) {
         setAuthTokens(data);
@@ -81,7 +84,7 @@ export const AuthProvider = ({ children }) => {
         history("/");
       } else {
         setLoginErrors(data);
-        console.log("Login failed");
+        // console.log("Login failed");
       }
     } catch (error) {
       console.error("Error during login ", error);
@@ -99,16 +102,24 @@ export const AuthProvider = ({ children }) => {
 
   // Update token
   let updateToken = async () => {
-    console.log("Update Token Called");
-    let response = await fetch("http://127.0.0.1:8000/api/token/refresh/", {
+    // console.log("Update Token Called");
+    // if (!authTokens || !authTokens.access) {
+    //   console.log("No access token found");
+    //   return;
+    // }
+
+    let response = await fetch(URL + "token/refresh/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        // Authorization: `Bearer ${authTokens?.access}`,
+        Authorization: "Bearer " + String(authTokens?.access),
       },
       // ? for if authToken is not there
       body: JSON.stringify({ refresh: authTokens?.refresh }),
     });
     let data = await response.json();
+    // console.log("Data:", data);
 
     if (response.status == 200) {
       setAuthTokens(data);
@@ -140,14 +151,16 @@ export const AuthProvider = ({ children }) => {
       updateToken();
     }
 
-    let refreshTime = 1000 * 600 * 24;
+    let refreshTime = 1000 * 600 * 23;
     // let refreshTime = 4000;
     let interval = setInterval(() => {
       if (authTokens) {
         updateToken();
       }
     }, refreshTime);
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(interval);
+    };
   }, [authTokens, loading]);
 
   return <AuthContext.Provider value={contextData}>{loading ? null : children}</AuthContext.Provider>;

@@ -10,8 +10,8 @@ const ProjectList = ({ projects, setProjects, handleActiveProject }) => {
         {noProjects && (
           <div className="projects-empty-container">
             <div className="projects-empty">
-              <img src="/Images/sleepingCat.gif" alt="" />
-              <p>You have no tasks in this project</p>
+              <img src="/Images/sleepingCat.gif" alt="" onContextMenu={(e) => e.preventDefault()} draggable="false" />
+              <p>You don't have any projects yet</p>
             </div>
           </div>
         )}
