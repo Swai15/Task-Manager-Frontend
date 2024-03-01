@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
-import Header from "../components/Header";
 import "../styles/LoginRegister.css";
 
 const RegisterPage = () => {
@@ -41,15 +40,6 @@ const RegisterPage = () => {
     } finally {
       setRegistrationLoading(false);
     }
-
-    // registerUser(formUserData)
-    //   .then((registrationResponse) => {
-    //     console.log("proceed with login");
-    //     return loginUser(e, inputUsername, inputPassword);
-    //   })
-    //   .catch((error) => {
-    //     console.log("Registration or login failed: ", error);
-    //   });
   };
 
   return (
@@ -139,11 +129,6 @@ const RegisterPage = () => {
                 {registrationLoading ? <img className="register-loading" src="/Images/loading.gif" alt="" /> : "Register"}
               </button>
             </div>
-
-            {/* {registrationLoading && <div>Loading...</div>}
-            <button className="register-loading">
-              <img src="/Images/loading.gif" alt="" />
-            </button> */}
 
             {registrationErrors && (
               <div className="alert alert-danger register-error-alert">

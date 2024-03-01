@@ -6,6 +6,8 @@ import AuthContext from "../context/AuthContext";
 const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, taskToEdit, setProjects }) => {
   const { authTokens } = useContext(AuthContext);
   const [projectsOptions, setProjectsOptions] = useState([]);
+  const [editTaskLoading, setEditTaskLoading] = useState(false);
+
   const isEditing = !!taskToEdit;
 
   const [formData, setFormData] = useState({
@@ -44,10 +46,11 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
     fetchProjects();
   }, []);
 
-  // Handle both creation and editing of tasks
+  // Handles both creation and editing of tasks
   const handleSubmitTask = async (e) => {
     e.preventDefault();
-    console.log(formData.task);
+    setEditTaskLoading(true);
+    // console.log(formData.task);
 
     try {
       const response = await fetch(`${URL}tasks/${taskToEdit.id}/`, {
@@ -61,7 +64,7 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
 
       // update state after a successful post
       if (response.ok) {
-        console.log(`Edit task successfully`);
+        // console.log(`Edit task successfully`);
 
         const updatedList = await fetch(`${URL}projects/${activeProjectId}`, {
           method: "GET",
@@ -87,6 +90,7 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
           },
           project: { title: "" },
         });
+        setEditTaskLoading(false);
 
         onCloseEditModal();
       } else {
@@ -174,7 +178,7 @@ const EditTaskForm = ({ onCloseEditModal, setSelectedProject, activeProjectId, t
           {/* submit */}
           <div className="modal-buttons">
             <button type="submit" className="btn btn-primary mr-" onSubmit={handleSubmitTask}>
-              Update
+              {editTaskLoading ? <img className="register-loading" src="/Images/loading.gif" alt="" /> : "Update"}
             </button>
             <button type="button" className="btn btn-secondary" onClick={onCloseEditModal}>
               Cancel

@@ -35,25 +35,18 @@ export const AuthProvider = ({ children }) => {
 
       const data = await response.json();
       if (response.status === 201) {
-        // console.log("User Registered successfully");
-        // console.log("data: ", data);
         // console.log("data tokens", data.tokens);
         setAuthTokens(data.tokens);
 
-        // console.log("data token access", data.tokens.access);
         let logUser = jwtDecode(data.tokens.access);
-        // console.log("decoded data.tokens.access: ", logUser);
         setUser(jwtDecode(data.tokens.access));
         localStorage.setItem("authTokens", JSON.stringify(data.tokens));
-        // history("/");
         return data;
       } else {
         setRegistrationErrors(data);
-        // console.log("Registration failed ", data);
         throw new Error("Registration Failed");
       }
     } catch (error) {
-      // console.error("Error during registration ", error);
       throw new Error("Error during registration");
     }
   };
@@ -79,12 +72,9 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens(data);
         setUser(jwtDecode(data.access));
         localStorage.setItem("authTokens", JSON.stringify(data));
-        // Second check
-        // console.log("Access: ", String(authTokens.access));
         history("/");
       } else {
         setLoginErrors(data);
-        // console.log("Login failed");
       }
     } catch (error) {
       console.error("Error during login ", error);
@@ -102,17 +92,10 @@ export const AuthProvider = ({ children }) => {
 
   // Update token
   let updateToken = async () => {
-    // console.log("Update Token Called");
-    // if (!authTokens || !authTokens.access) {
-    //   console.log("No access token found");
-    //   return;
-    // }
-
     let response = await fetch(URL + "token/refresh/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        // Authorization: `Bearer ${authTokens?.access}`,
         Authorization: "Bearer " + String(authTokens?.access),
       },
       // ? for if authToken is not there

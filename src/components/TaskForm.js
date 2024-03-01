@@ -6,6 +6,7 @@ import AuthContext from "../context/AuthContext";
 const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId, setProjects }) => {
   const { authTokens } = useContext(AuthContext);
   const [projectsOptions, setProjectsOptions] = useState([]);
+  const [addTaskLoading, setAddTaskLoading] = useState(false);
   const [formData, setFormData] = useState({
     task: {
       title: "",
@@ -46,6 +47,7 @@ const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId, setPr
   //Post task to db
   const handleSubmitTask = async (e) => {
     e.preventDefault();
+    setAddTaskLoading(true);
 
     try {
       console.log("FormData:", JSON.stringify(formData.task));
@@ -62,6 +64,7 @@ const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId, setPr
       // update state after successful post
       if (response.ok) {
         console.log("Task submitted successfully");
+        setAddTaskLoading(false);
 
         const updatedList = await fetch(`${URL}projects/${activeProjectId}`, {
           method: "GET",
@@ -174,7 +177,7 @@ const TaskForm = ({ onCloseTaskClick, setSelectedProject, activeProjectId, setPr
           {/* submit  */}
           <div className="modal-buttons">
             <button type="submit" className="btn btn-primary mr-" onSubmit={handleSubmitTask}>
-              Submit
+              {addTaskLoading ? <img className="register-loading" src="/Images/loading.gif" alt="" /> : "Submit"}
             </button>
             <button type="submit" className="btn btn-secondary" onClick={onCloseTaskClick}>
               Cancel

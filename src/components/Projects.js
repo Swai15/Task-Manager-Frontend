@@ -9,6 +9,7 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
   let { authTokens } = useContext(AuthContext);
   const [editProjectModal, setEditProjectModal] = useState(false);
   const [deleteProjectModal, setDeleteProjectModal] = useState(false);
+  const [deleteProjectLoading, setDeleteProjectLoading] = useState(false);
 
   const URL = "https://jules.pythonanywhere.com/api/";
   // const URL = "http://127.0.0.1:8000/api/";
@@ -19,7 +20,6 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
       e.stopPropagation();
     }
     setEditProjectModal(true);
-    console.log("Active Project ID: ", project.id);
   };
 
   const closeEditProjectClick = (e) => {
@@ -32,7 +32,7 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
   // Update project list
   const updateProjectList = async () => {
     try {
-      console.log("project edited list updated");
+      // console.log("project edited list updated");
       const response = await fetch(URL + "projects/", {
         method: "GET",
         headers: {
@@ -45,8 +45,6 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
       if (Array.isArray(updatedData)) {
         setProjects(updatedData);
       } else {
-        console.error("Invalid projects data:", updatedData);
-        // Handle the case where the response is not an array
       }
     } catch (error) {
       console.error("Error fetching updated projects ", error);
@@ -67,6 +65,7 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
 
   const handleDeleteProjectConfirmation = async (e) => {
     e.preventDefault();
+    setDeleteProjectLoading(true);
 
     try {
       const response = await fetch(`${URL}projects/${project.id}`, {
@@ -78,12 +77,13 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
       });
 
       if (response.ok) {
-        console.log("Project Deleted");
+        // console.log("Project Deleted");
         updateProjectList();
         // updateProjectList(setProjects, authTokens);
+        setDeleteProjectLoading(false);
         setDeleteProjectModal(false);
       } else {
-        console.log("Failed to delete Task");
+        // console.log("Failed to delete Task");
       }
     } catch (error) {
       console.log("error: ", error);
@@ -153,7 +153,7 @@ const Project = ({ project, onClick, setProjects, propUpdateProjects }) => {
                   <p>Are you sure you want to proceed?</p>
                   <div className="delete-project-modal-icons">
                     <button type="button" className="btn btn-primary " onClick={handleDeleteProjectConfirmation}>
-                      Delete
+                      {deleteProjectLoading ? <img className="register-loading" src="/Images/loading.gif" alt="" /> : "Delete"}
                     </button>
 
                     <button type="submit" className="btn btn-secondary" onClick={closeDeleteProjectClick}>

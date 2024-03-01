@@ -9,6 +9,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
   let { authTokens } = useContext(AuthContext);
   const [projectFormData, setProjectFormData] = useState({ title: "", icon: "default" });
   const [selectedIcon, setSelectedIcon] = useState("default");
+  const [addProjectLoading, setAddProjectLoading] = useState(false);
 
   const URL = "https://jules.pythonanywhere.com/api/";
   // const URL = "http://127.0.0.1:8000/api/";
@@ -16,6 +17,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
   // Submit Project
   const handleSubmitProject = async (e) => {
     e.preventDefault();
+    setAddProjectLoading(true);
 
     // const URL = "http://jules.pythonanywhere.com/api/";
 
@@ -32,9 +34,10 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
       });
 
       if (response.ok) {
-        console.log("project submitted");
+        // console.log("project submitted");
         // updateProjectList();
         updateProjectList(setProjects, authTokens);
+        setAddProjectLoading(false);
         onCloseProjectClick();
         setProjectFormData({
           title: "",
@@ -107,7 +110,7 @@ const ProjectForm = ({ onCloseProjectClick, setProjects }) => {
           {/* submit/cancel  */}
           <div className="project-modal-buttons">
             <button type="submit" className="btn btn-primary mr-" onSubmit={handleSubmitProject}>
-              Submit
+              {addProjectLoading ? <img className="register-loading" src="/Images/loading.gif" alt="" /> : "Submit"}
             </button>
             <button type="submit" className="btn btn-secondary" onClick={onCloseProjectClick}>
               Cancel

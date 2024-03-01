@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import "../styles/LoginRegister.css";
 import AuthContext from "../context/AuthContext";
@@ -6,12 +6,19 @@ import Header from "../components/Header";
 
 const LoginPage = () => {
   let { loginUser, loginErrors, setLoginErrors } = useContext(AuthContext);
+  const [loginLoading, setLoginLoading] = useState(false);
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
+    setLoginLoading(true);
     let inputUsername = e.target.Username.value;
     let inputPassword = e.target.Password.value;
-    loginUser(e, inputUsername, inputPassword);
+
+    try {
+      await loginUser(e, inputUsername, inputPassword);
+    } finally {
+      setLoginLoading(false);
+    }
   };
 
   const handleErrorState = () => {
@@ -42,7 +49,7 @@ const LoginPage = () => {
             {/* buttons */}
             <div className="login-buttons">
               <button type="submit" className="btn btn-primary">
-                Login
+                {loginLoading ? <img className="register-loading" src="/Images/loading.gif" alt="" /> : "Login"}
               </button>
             </div>
             <div className="register-link">

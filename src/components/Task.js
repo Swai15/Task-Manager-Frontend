@@ -9,12 +9,13 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
   const [descriptionModal, setDescriptionModal] = useState(false);
   const [completed, setCompleted] = useState(task.completed);
   const [deleteModal, setDeleteModal] = useState(false);
-  const [projectTitle, setProjectTitle] = useState(""); // New state to store the project title
+  const [projectTitle, setProjectTitle] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [newTask, setNewTask] = useState({ ...task }); // can't get changed task.completed state. newTask gets the updated change
 
   const [editModal, setEditModal] = useState(false);
+  const [deleteTaskLoading, setDeleteTaskLoading] = useState(false);
 
   const URL = "https://jules.pythonanywhere.com/api/";
 
@@ -93,6 +94,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
   };
 
   const handleDeleteConfirmation = async (e) => {
+    setDeleteTaskLoading(true);
     try {
       const response = await fetch(`${URL}tasks/${task.id}`, {
         method: "DELETE",
@@ -105,6 +107,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
       if (response.ok) {
         // console.log("Task deleted successfully");
         updateList();
+        setDeleteTaskLoading(false);
         updateProjectList(setProjects, authTokens);
       } else {
         console.log("failed to delete task ");
@@ -152,7 +155,6 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
   const formattedDate = new Intl.DateTimeFormat("en-US", options).format(taskDueDate);
 
   return (
-    // <div className="task-row task-row-style" key={task.id}>
     <div className={`taskDiv task-row task-row-style ${isModalOpen ? "modal-open" : "modal-close"}`} key={task.id}>
       <input type="checkbox" checked={completed} onChange={handleEditClick} className={setPriorityClass()} />
 
@@ -203,7 +205,7 @@ const Task = ({ task, projects, setProjects, setSelectedProject, activeProjectId
               <p>Are you sure you want to delete this task?</p>
               <div className="delete-modal-btns">
                 <button type="button" className="btn btn-primary " onClick={handleDeleteConfirmation}>
-                  Delete
+                  {deleteTaskLoading ? <img className="register-loading" src="/Images/loading.gif" alt="" /> : "Delete"}
                 </button>
                 <button type="submit" className="btn btn-secondary" onClick={handleDeleteModal}>
                   Cancel

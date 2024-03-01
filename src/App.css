@@ -645,3 +645,8 @@ h4 {
 .project-container-parent {
   height: 100vh;
 }
+
+.btn-primary {
+  min-width: 90px;
+  position: relative;
+}
